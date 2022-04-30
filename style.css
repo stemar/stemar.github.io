@@ -1,6 +1,6 @@
 @import url("https://cdn.jsdelivr.net/gh/ResponsiveBP/Responsive@master/build/responsive.min.css");
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
-@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;700&display=swap");
 
 html {
     scroll-behavior: smooth;
@@ -78,7 +78,7 @@ a {
  */
 body {
     background-color: #f0f2f4;
-    font-family: "Red Hat Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Libre Franklin", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 h1, h2, h3 {
     color: #a00;
