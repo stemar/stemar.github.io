@@ -1,0 +1,326 @@
+@import url("https://cdn.jsdelivr.net/gh/ResponsiveBP/Responsive@master/build/responsive.min.css");
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;700&display=swap");
+
+html {
+    scroll-behavior: smooth;
+}
+
+/**
+ * Responsive BP
+ */
+:focus {
+    outline: inherit;
+}
+a[onclick]:not([href]) {
+    cursor: pointer;
+}
+a {
+    color: inherit;
+}
+@media (min-width: 48em) {
+    .row, [class*=block-row-] {
+        margin: 1rem -16px;
+    }
+    [class*=col-] {
+        border-left: 16px solid transparent;
+        border-right: 16px solid transparent;
+    }
+}
+.carousel {
+    margin: 0;
+}
+.modal-overlay button {
+    background-color: #666;
+    border-radius: 5px;
+    color: #eee;
+}
+.modal-overlay a:active,
+.modal-overlay a:focus,
+.modal-overlay a:hover,
+.modal-overlay button:active,
+.modal-overlay button:focus,
+.modal-overlay button:hover {
+    text-decoration: none;
+}
+.modal-content {
+    padding: 0.5rem;
+}
+.modal-close {
+    padding: 0.5rem 1rem;
+}
+.modal-header h2 {
+    color: inherit;
+}
+.tabs section {
+    border: 1px solid silver;
+    border-top: 0;
+    margin-bottom: 0;
+    margin-top: -4px;
+    padding-top: 4px;
+}
+.tabs ul,
+.tabs ol {
+    margin: 0.25em 0;
+    padding-left: 1.5em;
+}
+.tabs li {
+    font-size: smaller;
+    line-height: 1.2;
+}
+.tabs li kbd {
+    font-size: smaller;
+}
+
+
+/**
+ * Typography
+ */
+body {
+    background-color: #f0f2f4;
+    font-family: "Red Hat Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+h1, h2, h3 {
+    color: #a00;
+}
+h1 {
+    font-size: 3.5em;
+    font-weight: 300;
+}
+h2 {
+    font-size: 1.9em;
+    font-weight: 700;
+}
+h3 {
+    font-size: 1.4em;
+    font-weight: 700;
+}
+h4 {
+    color: #555;
+    font-size: 1.1em;
+    font-weight: 700;
+    margin: 1em 0 0.5em;
+}
+h4 + p {
+    margin-top: 0;
+}
+ul {
+    list-style-position: outside;
+    margin: 0;
+    padding-left: 1.25em;
+}
+li {
+    line-height: 1.6;
+}
+a,
+a:visited {
+    color: #787878;
+    outline: none;
+    text-decoration: none;
+}
+a:active,
+a:focus,
+a:hover {
+    color: black;
+    outline: none;
+    text-decoration: underline;
+}
+a[name]:not(href) {
+    content: "";
+    display: block;
+}
+code {
+    font-size: smaller;    
+}
+i.fa-li {
+    top: 0.25em;    
+}
+i.fa {
+    color: #a0a2a4;
+    font-size: 1em;
+    margin-right: 0.25em;
+}
+i.fa-envelope {
+    font-size: 1em;
+}
+i.fa-caret-square-down {
+    font-size: 2em;
+}
+i.fa-caret-square-up {
+    font-size: 1.25em;
+}
+a.btn {
+    background-color: #a00;
+    border-color: #a00;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0 0.25rem;
+    padding: 0.25rem 0.5rem;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+a.btn-float {
+    float: right;
+    margin-left: 0.5rem;
+}
+
+/**
+ * Hero
+ */
+.hero {
+    background-color: white;
+    margin-bottom: 2em;
+}
+.hero .container {
+    padding: 1em 0.5em 2em;
+}
+.hero h1 {
+    font-weight: 700;
+}
+.hero h2 {
+    color: #aaa;
+    margin-bottom: 1em;
+}
+.hero p {
+    color: #ccc;
+}
+.hero ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+
+/**
+ * Sections
+ */
+section {
+    margin-bottom: 2em;
+    margin-top: -3em;
+    padding-top: 3em;
+}
+section .box {
+    background-color: white;
+    padding: 2em;
+}
+section .box h3:first-child {
+    margin-top: 0;
+}
+#Skills h3 {
+    margin-top: 2em;
+}
+#Skills h2 + h3 {
+    margin-top: 1em;
+}
+#Years_experience p,
+#Skills p {
+    margin-bottom: 0.25em;
+}
+#Skills a,
+#Skills a:visited {
+    color: inherit;
+}
+@media (min-width: 48em) {
+    #Projects h3,
+    #Education .row h4 {
+        margin-top: 0;
+    }
+}
+#Projects .row,
+#Education .row {
+    margin-top: 2em;
+}
+#Projects p i.fa {
+    font-size: inherit;
+}
+#Projects img,
+#Education img {
+    border: 1px solid #ddd;
+}
+#Projects .two-img img {
+    border: 0;
+    margin: 0 auto;
+    padding: 0 .5em;
+}
+#Education h3 {
+    margin-top: 2em;
+}
+#Education h2 + h3 {
+    margin-top: 1em;
+}
+#Years_experience h2 > span,
+#Projects h3 > span,
+#Education h3 > span {
+    color: #999;
+    font-size: smaller;
+}
+#Education h4 > span {
+    color: #a00;
+}
+#Education p + ul,
+#GitHub p + ul {
+    margin-bottom: 0;
+}
+#Education p,
+#GitHub p {
+    margin-bottom: inherit;
+}
+#GitHub p,
+#GitHub li {
+    line-height: 1.5;
+}
+.box {
+    background: white;
+    border-radius: 5px;
+}
+.box > h2:first-child,
+.box > h3:first-child {
+    margin-top: 0;
+}
+.box > p:last-child,
+.box > ul:last-child {
+    margin-bottom: 0;
+}
+
+
+/**
+ * Level bar
+ */
+.level {
+    background-color: #ddd;
+    font-size: .8em;
+    width: 100%;
+}
+.level-bar {
+    color: white;
+    display: inline-block;
+    padding: .25em;
+    text-align: center;
+}
+.experience {
+    background-color: #a00;
+}
+.advanced {
+    background-color: #4caf50;
+    width: 98%;
+}
+.proficient {
+    background-color: #6886f5;
+    width: 75%;
+}
+.intermediate {
+    background-color: #ffad33;
+    width: 50%;
+}
+.learning {
+    background-color: #fdf50a;
+    color: #666;
+    width: 25%;
+}
