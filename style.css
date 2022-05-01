@@ -2,9 +2,6 @@
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 @import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;700&display=swap");
 
-html {
-    scroll-behavior: smooth;
-}
 
 /**
  * Responsive BP
@@ -170,7 +167,12 @@ a.btn {
 a.btn-float {
     float: right;
     margin-left: 0.5rem;
+    margin-top: -0.25rem;
 }
+.table-specs td {
+    text-align: center;
+}
+
 
 /**
  * Hero
@@ -210,8 +212,16 @@ section .box {
     background-color: white;
     padding: 2em;
 }
-section .box h3:first-child {
+section .box h2:first-of-type {
     margin-top: 0;
+}
+section .box .img-float {
+    float: right;
+    margin-left: 0.5rem;
+    max-width: 10rem;
+}
+section .box .img-float img[src*=".svg"] {
+    width: 100%;
 }
 #Skills h3 {
     margin-top: 2em;
