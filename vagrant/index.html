@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="robots" content="index,nofollow">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Stemar Vagrant boxes</title>
+        <meta name="copyright" content="Copyright (c) Steven Marshall">
+        <link rel="stylesheet" href="/style.css">
+    </head>
+
+    <body>
+
+        <header class="hero">
+
+            <div class="container">
+
+                <h1>Stemar Vagrant boxes</h1>
+                <h2>A system for concurrently running Vagrant boxes with flexible configuration</h2>
+                <h4>
+                    64bit open-source Linux distribution <a target="_blank" href="https://www.virtualbox.org/wiki/Downloads">Oracle VirtualBox</a> virtual machine with virtual 64GB HDD, 3GB RAM from <a target="_blank" href="https://chef.github.io/bento">Bento</a>.<br>
+                    Bash provisioning script that adds a LAMP stack and custom configuration.<br>
+                    Directory tree of multiple Vagrant virtual machines to run and manage them independently and concurrently.
+                </h4>
+            </div>
+
+        </header>
+
+        <main>
+
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-s-12 col-m-7">
+
+                        <section>
+                            <div class="box">
+
+                                <div class="row">
+                                    <div class="col-xs-12">
+
+                                        <div class="img-float">
+                                            <!-- <img src="/vagrant/img/Rocky_Linux_wordmark.svg" alt="Rocky Linux logo"> -->
+                                            <img style="margin-top:0.2rem;" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTEwMSIgaGVpZ2h0PSIxOTMiIHZpZXdCb3g9IjAgMCAxMTAxIDE5MyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xODYuNjU4IDEyOC42NThDMTkwLjExOSAxMTguNzQ2IDE5MiAxMDguMDkzIDE5MiA5N0MxOTIgNDMuOTgwNyAxNDkuMDE5IDEgOTYgMUM0Mi45ODA3IDEgMCA0My45ODA3IDAgOTdDMCAxMjMuMjM0IDEwLjUyMyAxNDcuMDExIDI3LjU3ODMgMTY0LjMzOEwxMjQuOTU4IDY2Ljk1ODRMMTQ5IDkxTDE4Ni42NTggMTI4LjY1OFpNMTY5LjEyMiAxNTkuMjA1TDEyNC45NTggMTE1LjA0Mkw1NS43OTc4IDE4NC4yMDJDNjguMDI2OSAxODkuODQ5IDgxLjY0NTUgMTkzIDk2IDE5M0MxMjUuMjg4IDE5MyAxNTEuNTE0IDE3OS44ODQgMTY5LjEyMiAxNTkuMjA1WiIgZmlsbD0iIzEwQjk4MSIvPgo8cGF0aCBkPSJNMjUxLjA3MiAxNDdWNDYuMkgzMDAuMzJDMzA1LjQwOCA0Ni4yIDMxMC4wNjQgNDYuOTY4IDMxNC4yODggNDguNTA0QzMxOC42MDggNTAuMDQgMzIyLjMwNCA1Mi4yIDMyNS4zNzYgNTQuOTg0QzMyOC40NDggNTcuNjcyIDMzMC44NDggNjAuOTM2IDMzMi41NzYgNjQuNzc2QzMzNC4zMDQgNjguNjE2IDMzNS4xNjggNzIuODQgMzM1LjE2OCA3Ny40NDhDMzM1LjE2OCA4My43ODQgMzMzLjM0NCA4OS40NDggMzI5LjY5NiA5NC40NEMzMjYuMTQ0IDk5LjQzMiAzMjEuMzkyIDEwMy4xMjggMzE1LjQ0IDEwNS41MjhMMzM3Ljc2IDE0N0gzMTQuNDMyTDI5NC43MDQgMTA4LjQwOEgyNzEuOTUyVjE0N0gyNTEuMDcyWk0yOTguNDQ4IDY0LjJIMjcxLjk1MlY5MS4yNzJIMjk4LjQ0OEMzMDMuMTUyIDkxLjI3MiAzMDYuODk2IDkwLjAyNCAzMDkuNjggODcuNTI4QzMxMi41NiA4NS4wMzIgMzE0IDgxLjc2OCAzMTQgNzcuNzM2QzMxNCA3My43MDQgMzEyLjU2IDcwLjQ0IDMwOS42OCA2Ny45NDRDMzA2Ljg5NiA2NS40NDggMzAzLjE1MiA2NC4yIDI5OC40NDggNjQuMlpNMzM5LjY5NSAxMDkuNTZDMzM5LjY5NSAxMDQuMDg4IDM0MC43MDMgOTkgMzQyLjcxOSA5NC4yOTZDMzQ0LjgzMSA4OS40OTYgMzQ3LjY2MyA4NS4zNjggMzUxLjIxNSA4MS45MTJDMzU0Ljg2MyA3OC4zNiAzNTkuMTM1IDc1LjU3NiAzNjQuMDMxIDczLjU2QzM2OC45MjcgNzEuNTQ0IDM3NC4xNTkgNzAuNTM2IDM3OS43MjcgNzAuNTM2QzM4NS4yOTUgNzAuNTM2IDM5MC41MjcgNzEuNTQ0IDM5NS40MjMgNzMuNTZDNDAwLjMxOSA3NS41NzYgNDA0LjU0MyA3OC4zNiA0MDguMDk1IDgxLjkxMkM0MTEuNzQzIDg1LjM2OCA0MTQuNTc1IDg5LjQ5NiA0MTYuNTkxIDk0LjI5NkM0MTguNzAzIDk5IDQxOS43NTkgMTA0LjA4OCA0MTkuNzU5IDEwOS41NkM0MTkuNzU5IDExNS4wMzIgNDE4LjcwMyAxMjAuMTY4IDQxNi41OTEgMTI0Ljk2OEM0MTQuNTc1IDEyOS42NzIgNDExLjc0MyAxMzMuNzUyIDQwOC4wOTUgMTM3LjIwOEM0MDQuNTQzIDE0MC42NjQgNDAwLjMxOSAxNDMuNCAzOTUuNDIzIDE0NS40MTZDMzkwLjUyNyAxNDcuNDMyIDM4NS4yOTUgMTQ4LjQ0IDM3OS43MjcgMTQ4LjQ0QzM3NC4xNTkgMTQ4LjQ0IDM2OC45MjcgMTQ3LjQzMiAzNjQuMDMxIDE0NS40MTZDMzU5LjEzNSAxNDMuNCAzNTQuODYzIDE0MC42NjQgMzUxLjIxNSAxMzcuMjA4QzM0Ny42NjMgMTMzLjc1MiAzNDQuODMxIDEyOS42NzIgMzQyLjcxOSAxMjQuOTY4QzM0MC43MDMgMTIwLjE2OCAzMzkuNjk1IDExNS4wMzIgMzM5LjY5NSAxMDkuNTZaTTM3OS43MjcgMTMxLjMwNEMzODUuNDg3IDEzMS4zMDQgMzkwLjM4MyAxMjkuMTkyIDM5NC40MTUgMTI0Ljk2OEMzOTguNDQ3IDEyMC43NDQgNDAwLjQ2MyAxMTUuNjA4IDQwMC40NjMgMTA5LjU2QzQwMC40NjMgMTAzLjQxNiAzOTguNDQ3IDk4LjIzMiAzOTQuNDE1IDk0LjAwOEMzOTAuMzgzIDg5Ljc4NCAzODUuNDg3IDg3LjY3MiAzNzkuNzI3IDg3LjY3MkMzNzMuOTY3IDg3LjY3MiAzNjkuMDcxIDg5Ljc4NCAzNjUuMDM5IDk0LjAwOEMzNjEuMDA3IDk4LjIzMiAzNTguOTkxIDEwMy40MTYgMzU4Ljk5MSAxMDkuNTZDMzU4Ljk5MSAxMTUuNjA4IDM2MS4wMDcgMTIwLjc0NCAzNjUuMDM5IDEyNC45NjhDMzY5LjA3MSAxMjkuMTkyIDM3My45NjcgMTMxLjMwNCAzNzkuNzI3IDEzMS4zMDRaTTQ2OS4xNjggMTMxLjE2QzQ3Mi41MjggMTMxLjE2IDQ3NS42NDggMTMwLjQ4OCA0NzguNTI4IDEyOS4xNDRDNDgxLjUwNCAxMjcuOCA0ODQuMzM2IDEyNS42ODggNDg3LjAyNCAxMjIuODA4TDQ5OC44MzIgMTM1LjA0OEM0OTQuOTkyIDEzOS4yNzIgNDkwLjM4NCAxNDIuNTg0IDQ4NS4wMDggMTQ0Ljk4NEM0NzkuNjMyIDE0Ny4yODggNDc0LjA2NCAxNDguNDQgNDY4LjMwNCAxNDguNDRDNDYyLjgzMiAxNDguNDQgNDU3LjY0OCAxNDcuNDMyIDQ1Mi43NTIgMTQ1LjQxNkM0NDcuOTUyIDE0My40IDQ0My43NzYgMTQwLjY2NCA0NDAuMjI0IDEzNy4yMDhDNDM2Ljc2OCAxMzMuNzUyIDQzNC4wMzIgMTI5LjY3MiA0MzIuMDE2IDEyNC45NjhDNDMwIDEyMC4xNjggNDI4Ljk5MiAxMTUuMDMyIDQyOC45OTIgMTA5LjU2QzQyOC45OTIgMTA0LjA4OCA0MzAgOTkgNDMyLjAxNiA5NC4yOTZDNDM0LjAzMiA4OS40OTYgNDM2Ljc2OCA4NS4zNjggNDQwLjIyNCA4MS45MTJDNDQzLjc3NiA3OC4zNiA0NDcuOTUyIDc1LjU3NiA0NTIuNzUyIDczLjU2QzQ1Ny42NDggNzEuNTQ0IDQ2Mi44MzIgNzAuNTM2IDQ2OC4zMDQgNzAuNTM2QzQ3NC4yNTYgNzAuNTM2IDQ3OS45NjggNzEuNzM2IDQ4NS40NCA3NC4xMzZDNDkwLjkxMiA3Ni40NCA0OTUuNTY4IDc5LjcwNCA0OTkuNDA4IDgzLjkyOEw0ODcuMzEyIDk2Ljc0NEM0ODQuNjI0IDkzLjc2OCA0ODEuNzQ0IDkxLjUxMiA0NzguNjcyIDg5Ljk3NkM0NzUuNiA4OC40NCA0NzIuMjg4IDg3LjY3MiA0NjguNzM2IDg3LjY3MkM0NjMuMDcyIDg3LjY3MiA0NTguMjcyIDg5Ljc4NCA0NTQuMzM2IDk0LjAwOEM0NTAuNDk2IDk4LjIzMiA0NDguNTc2IDEwMy40MTYgNDQ4LjU3NiAxMDkuNTZDNDQ4LjU3NiAxMTUuNzA0IDQ1MC41NDQgMTIwLjg0IDQ1NC40OCAxMjQuOTY4QzQ1OC41MTIgMTI5LjA5NiA0NjMuNDA4IDEzMS4xNiA0NjkuMTY4IDEzMS4xNlpNNTA5LjA4OSAxNDdWNDYuMkw1MjguODE3IDQxLjg4VjEwMy42NTZMNTYxLjIxNyA3MS45NzZINTgzLjUzN0w1NDguNDAxIDEwNi4zOTJMNTg1LjY5NyAxNDdINTYwLjQ5N0w1MjguODE3IDExMi43MjhWMTQ3SDUwOS4wODlaTTYxMi42NDMgMTUwLjQ1Nkw2MTMuNzk1IDE0Ny43Mkw1ODQuNTYyIDcxLjk3Nkg2MDYuMzA3TDYyNC44ODMgMTIzLjA5Nkw2NDYuMTk1IDcxLjk3Nkg2NjcuNTA3TDYzMi45NDcgMTUyLjkwNEM2MjkuMTA3IDE2MS45MjggNjI0LjY0MyAxNjguMzYgNjE5LjU1NSAxNzIuMkM2MTQuNDY3IDE3Ni4wNCA2MDcuODQzIDE3Ny45NiA1OTkuNjgzIDE3Ny45NkM1OTcuOTU1IDE3Ny45NiA1OTYuMjc1IDE3Ny44NjQgNTk0LjY0MyAxNzcuNjcyQzU5My4xMDcgMTc3LjU3NiA1OTEuODU5IDE3Ny4zODQgNTkwLjg5OSAxNzcuMDk2VjE2MC4xMDRDNTkxLjg1OSAxNjAuMjk2IDU5Mi44NjcgMTYwLjQ0IDU5My45MjMgMTYwLjUzNkM1OTQuOTc5IDE2MC42MzIgNTk2LjI3NSAxNjAuNjggNTk3LjgxMSAxNjAuNjhDNjAxLjM2MyAxNjAuNjggNjA0LjMzOSAxNTkuODE2IDYwNi43MzkgMTU4LjA4OEM2MDkuMjM1IDE1Ni4zNiA2MTEuMjAzIDE1My44MTYgNjEyLjY0MyAxNTAuNDU2Wk03MDYuNzQ0IDE0N1Y0Ni4ySDcxNy44MzJWMTM3LjA2NEg3NzcuODhWMTQ3SDcwNi43NDRaTTc5Ni45NjMgNjEuMDMyQzc5NS4wNDMgNjEuMDMyIDc5My4zNjMgNjAuMzEyIDc5MS45MjMgNTguODcyQzc5MC40ODMgNTcuNDMyIDc4OS43NjMgNTUuNzUyIDc4OS43NjMgNTMuODMyQzc4OS43NjMgNTEuODE2IDc5MC40ODMgNTAuMTM2IDc5MS45MjMgNDguNzkyQzc5My4zNjMgNDcuMzUyIDc5NS4wNDMgNDYuNjMyIDc5Ni45NjMgNDYuNjMyQzc5OC45NzkgNDYuNjMyIDgwMC42NTkgNDcuMzUyIDgwMi4wMDMgNDguNzkyQzgwMy40NDMgNTAuMTM2IDgwNC4xNjMgNTEuODE2IDgwNC4xNjMgNTMuODMyQzgwNC4xNjMgNTUuNzUyIDgwMy40NDMgNTcuNDMyIDgwMi4wMDMgNTguODcyQzgwMC42NTkgNjAuMzEyIDc5OC45NzkgNjEuMDMyIDc5Ni45NjMgNjEuMDMyWk04MDIuMjkxIDc0Ljg1NlYxNDdINzkxLjYzNVY3NC44NTZIODAyLjI5MVpNODIwLjQ2MyAxNDdWNzQuODU2SDgzMS4xMTlWODMuMzUyQzgzMy45MDMgODAuMDg4IDgzNy4yMTUgNzcuNjQgODQxLjA1NSA3Ni4wMDhDODQ0Ljg5NSA3NC4yOCA4NDkuMTY3IDczLjQxNiA4NTMuODcxIDczLjQxNkM4NjIuMDMxIDczLjQxNiA4NjguNzAzIDc2LjAwOCA4NzMuODg3IDgxLjE5MkM4NzkuMDcxIDg2LjM3NiA4ODEuNjYzIDkzLjA5NiA4ODEuNjYzIDEwMS4zNTJWMTQ3SDg3MS4xNTFWMTAzLjUxMkM4NzEuMTUxIDk3LjE3NiA4NjkuMzI3IDkyLjEzNiA4NjUuNjc5IDg4LjM5MkM4NjIuMDMxIDg0LjY0OCA4NTcuMTM1IDgyLjc3NiA4NTAuOTkxIDgyLjc3NkM4NDYuNjcxIDgyLjc3NiA4NDIuNzgzIDgzLjczNiA4MzkuMzI3IDg1LjY1NkM4MzUuOTY3IDg3LjU3NiA4MzMuMjMxIDkwLjMxMiA4MzEuMTE5IDkzLjg2NFYxNDdIODIwLjQ2M1pNOTA5LjAxNSA3NC44NTZWMTE4LjM0NEM5MDkuMDE1IDEyNC42OCA5MTAuODM5IDEyOS43MiA5MTQuNDg3IDEzMy40NjRDOTE4LjEzNSAxMzcuMjA4IDkyMy4wMzEgMTM5LjA4IDkyOS4xNzUgMTM5LjA4QzkzMy40OTUgMTM5LjA4IDkzNy4zMzUgMTM4LjEyIDk0MC42OTUgMTM2LjJDOTQ0LjE1MSAxMzQuMTg0IDk0Ni45MzUgMTMxLjQgOTQ5LjA0NyAxMjcuODQ4Vjc0Ljg1Nkg5NTkuNzAzVjE0N0g5NDkuMDQ3VjEzOC42NDhDOTQ2LjI2MyAxNDEuOTEyIDk0Mi45NTEgMTQ0LjM2IDkzOS4xMTEgMTQ1Ljk5MkM5MzUuMzY3IDE0Ny42MjQgOTMxLjE0MyAxNDguNDQgOTI2LjQzOSAxNDguNDRDOTE4LjE4MyAxNDguNDQgOTExLjQ2MyAxNDUuODQ4IDkwNi4yNzkgMTQwLjY2NEM5MDEuMDk1IDEzNS40OCA4OTguNTAzIDEyOC43NiA4OTguNTAzIDEyMC41MDRWNzQuODU2SDkwOS4wMTVaTTk2OS40NyAxNDdMOTk3LjgzOCAxMDkuODQ4TDk3MC45MSA3NC44NTZIOTgzLjU4MkwxMDA0LjAzIDEwMS45MjhMMTAyNC40OCA3NC44NTZIMTAzNi43MkwxMDEwLjA4IDEwOS43MDRMMTAzOC41OSAxNDdIMTAyNS45MkwxMDAzLjg5IDExNy42MjRMOTgxLjU2NiAxNDdIOTY5LjQ3WiIgZmlsbD0iYmxhY2siLz4KPHBhdGggZD0iTTEwNDggNzAuNjI0VjU0Ljk3NkgxMDQyLjgyVjUxLjk1MkgxMDQ4VjQ1Ljg1NkwxMDUxLjUgNDQuOTQ0VjUxLjk1MkgxMDU4Ljc1VjU0Ljk3NkgxMDUxLjVWNjkuNzEyQzEwNTEuNSA3MC45OTIgMTA1MS43OSA3MS45MiAxMDUyLjM3IDcyLjQ5NkMxMDUyLjk0IDczLjA0IDEwNTMuODkgNzMuMzEyIDEwNTUuMiA3My4zMTJDMTA1NS44NyA3My4zMTIgMTA1Ni40NiA3My4yNjQgMTA1Ni45OCA3My4xNjhDMTA1Ny41MiA3My4wNzIgMTA1OC4xIDcyLjkxMiAxMDU4LjcgNzIuNjg4Vjc1LjgwOEMxMDU4LjEgNzYuMDMyIDEwNTcuNDEgNzYuMTkyIDEwNTYuNjQgNzYuMjg4QzEwNTUuOSA3Ni4zODQgMTA1NS4xOCA3Ni40MzIgMTA1NC40OCA3Ni40MzJDMTA1Mi40IDc2LjQzMiAxMDUwLjggNzUuOTM2IDEwNDkuNjggNzQuOTQ0QzEwNDguNTYgNzMuOTUyIDEwNDggNzIuNTEyIDEwNDggNzAuNjI0Wk0xMDYyLjU2IDc2VjUxLjk1MkgxMDY2LjExVjU0LjU5MkMxMDY3IDUzLjU2OCAxMDY4LjA0IDUyLjggMTA2OS4yMyA1Mi4yODhDMTA3MC40MSA1MS43NDQgMTA3MS43MiA1MS40NzIgMTA3My4xNiA1MS40NzJDMTA3NC44MyA1MS40NzIgMTA3Ni4zMiA1MS44NzIgMTA3Ny42MyA1Mi42NzJDMTA3OC45NyA1My40NCAxMDgwLjAxIDU0LjQ5NiAxMDgwLjc1IDU1Ljg0QzEwODEuNzQgNTQuMzY4IDEwODIuOTIgNTMuMjggMTA4NC4zIDUyLjU3NkMxMDg1LjcxIDUxLjg0IDEwODcuMjggNTEuNDcyIDEwODkgNTEuNDcyQzEwOTEuNiA1MS40NzIgMTA5My43MSA1Mi4zMzYgMTA5NS4zNCA1NC4wNjRDMTA5NyA1NS43OTIgMTA5Ny44NCA1OC4wMzIgMTA5Ny44NCA2MC43ODRWNzZIMTA5NC4zM1Y2MS41MDRDMTA5NC4zMyA1OS4zOTIgMTA5My43NyA1Ny43MTIgMTA5Mi42NSA1Ni40NjRDMTA5MS41MyA1NS4yMTYgMTA5MC4wMSA1NC41OTIgMTA4OC4wOSA1NC41OTJDMTA4Ni43OCA1NC41OTIgMTA4NS41OCA1NC45MjggMTA4NC40OSA1NS42QzEwODMuNCA1Ni4yNzIgMTA4Mi40OCA1Ny4yNDggMTA4MS43MSA1OC41MjhDMTA4MS43NyA1OC44OCAxMDgxLjgyIDU5LjI0OCAxMDgxLjg1IDU5LjYzMkMxMDgxLjkyIDU5Ljk4NCAxMDgxLjk1IDYwLjM2OCAxMDgxLjk1IDYwLjc4NFY3NkgxMDc4LjQ0VjYxLjUwNEMxMDc4LjQ0IDU5LjM5MiAxMDc3Ljg4IDU3LjcxMiAxMDc2Ljc2IDU2LjQ2NEMxMDc1LjY0IDU1LjIxNiAxMDc0LjE0IDU0LjU5MiAxMDcyLjI1IDU0LjU5MkMxMDcwLjk3IDU0LjU5MiAxMDY5LjggNTQuODk2IDEwNjguNzUgNTUuNTA0QzEwNjcuNzIgNTYuMDggMTA2Ni44NCA1Ni45NDQgMTA2Ni4xMSA1OC4wOTZWNzZIMTA2Mi41NloiIGZpbGw9ImJsYWNrIi8+Cjwvc3ZnPgo=" alt="Rocky Linux logo">
+                                        </div>
+
+                                        <h2>Rocky Linux</h2>
+
+                                        <p><a target="_blank" href="https://rockylinux.org">Rocky Linux</a> is an open-source enterprise operating system designed to be 100% compatible with <a target="_blank" href="https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux">Red Hat Enterprise Linux</a>&reg; (RHEL).</p>
+                                        <p><a target="_blank" href="https://rockylinux.org">Rocky Linux</a> started when <a target="_blank" href="https://www.redhat.com">Red Hat</a> announced that they would discontinue development of <a target="_blank" href="https://www.centos.org">CentOS</a> in December 2020.</p>
+
+                                        <a target="_blank" class="btn btn-float" role="button" href="//github.com/stemar/vagrant-rockylinux-8">Rocky Linux 8</a>
+                                        <p>This Vagrant box contains stable versions:</p>
+
+                                        <table class="table-bordered table-specs">
+                                            <tr>
+                                                <td>Rocky Linux</td>
+                                                <td>Apache</td>
+                                                <td>MariaDB</td>
+                                                <td>PHP</td>
+                                                <td>Ruby</td>
+                                            </tr>
+                                            <tr>
+                                                <td>8.5</td>
+                                                <td>2.4</td>
+                                                <td>10.6</td>
+                                                <td>8.1</td>
+                                                <td>3.1</td>
+                                            </tr>
+                                        </table>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
+
+                        <section>
+                            <div class="box">
+
+                                <div class="row">
+                                    <div class="col-xs-12">
+
+                                        <div class="img-float">
+                                            <img style="margin-top:-0.5rem;" src="/vagrant/img/centos-logo-light.svg" alt="CentOS logo">
+                                        </div>
+
+                                        <h2>CentOS</h2>
+                                        <p><a target="_blank" href="https://www.centos.org">CentOS</a> is an open-source enterprise operating system compatible with <a target="_blank" href="https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux">Red Hat Enterprise Linux</a>&reg; (RHEL).</p>
+                                        <p><a target="_blank" href="https://www.centos.org">CentOS</a> is discontinued; it was available from May 2004 to November 2021.</p>
+
+                                        <a target="_blank" class="btn btn-float" role="button" href="//github.com/stemar/vagrant-centos-8">CentOS 8</a>
+                                        <p>This Vagrant box contains stable versions:</p>
+
+                                        <table class="table-bordered table-specs">
+                                            <tr>
+                                                <td>CentOS</td>
+                                                <td>Apache</td>
+                                                <td>MariaDB</td>
+                                                <td>PHP</td>
+                                            </tr>
+                                            <tr>
+                                                <td>8.5</td>
+                                                <td>2.4</td>
+                                                <td>10.6</td>
+                                                <td>8.1</td>
+                                            </tr>
+                                        </table>
+
+                                        <a target="_blank" class="btn btn-float" role="button" href="//github.com/stemar/vagrant-centos-7">CentOS 7</a>
+                                        <p>This Vagrant box contains stable versions:</p>
+
+                                        <table class="table-bordered table-specs">
+                                            <tr>
+                                                <td>CentOS</td>
+                                                <td>Apache</td>
+                                                <td>MariaDB</td>
+                                                <td>PHP</td>
+                                            </tr>
+                                            <tr>
+                                                <td>7.9</td>
+                                                <td>2.4</td>
+                                                <td>10.6</td>
+                                                <td>8.1</td>
+                                            </tr>
+                                        </table>
+
+                                        <a target="_blank" class="btn btn-float" role="button" href="//github.com/stemar/vagrant-centos-6">CentOS 6</a>
+                                        <p>This Vagrant box contains stable versions:</p>
+
+                                        <table class="table-bordered table-specs">
+                                            <tr>
+                                                <td>CentOS</td>
+                                                <td>Apache</td>
+                                                <td>MySQL</td>
+                                                <td>PHP</td>
+                                            </tr>
+                                            <tr>
+                                                <td>6.10</td>
+                                                <td>2.2</td>
+                                                <td>5.1.73</td>
+                                                <td>5.3.3</td>
+                                            </tr>
+                                        </table>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
+
+                        <section>
+                            <div class="box">
+
+                                <div class="row">
+                                    <div class="col-xs-12">
+
+                                        <div class="img-float">
+                                            <img style="margin-top:-0.75rem;" src="/vagrant/img/ubuntu-logo-2022.svg" alt="Ubuntu logo">
+                                        </div>
+
+                                        <h2>Ubuntu</h2>
+                                        <p><a target="_blank" href="https://ubuntu.com">Ubuntu</a> is a Linux distribution based on <a target="_blank" href="https://www.debian.org">Debian</a> and composed mostly of free and open-source software.</p>
+
+                                        <a target="_blank" class="btn btn-float" role="button" href="//github.com/stemar/vagrant-ubuntu-20-04">Ubuntu 20.04</a>
+                                        <p>This Vagrant box contains stable versions:</p>
+
+                                        <table class="table-bordered table-specs">
+                                            <tr>
+                                                <td>Ubuntu</td>
+                                                <td>Apache</td>
+                                                <td>MariaDB</td>
+                                                <td>PHP</td>
+                                            </tr>
+                                            <tr>
+                                                <td>20.04</td>
+                                                <td>2.4</td>
+                                                <td>10.6</td>
+                                                <td>8.1</td>
+                                            </tr>
+                                        </table>
+
+                                        <a target="_blank" class="btn btn-float" role="button" href="//github.com/stemar/vagrant-ubuntu-18-04">Ubuntu 18.04</a>
+                                        <p>This Vagrant box contains stable versions:</p>
+
+                                        <table class="table-bordered table-specs">
+                                            <tr>
+                                                <td>Ubuntu</td>
+                                                <td>Apache</td>
+                                                <td>MariaDB</td>
+                                                <td>PHP</td>
+                                            </tr>
+                                            <tr>
+                                                <td>18.04</td>
+                                                <td>2.4</td>
+                                                <td>10.6</td>
+                                                <td>8.1</td>
+                                            </tr>
+                                        </table>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
+
+                        <section>
+                            <div class="box">
+
+                                <div class="row">
+                                    <div class="col-xs-12">
+
+                                        <div class="img-float">
+                                            <img style="margin-top:-0.75rem;width:6rem;height:6rem;" src="/vagrant/img/debian.openlogo.svg" alt="Debian logo">
+                                        </div>
+
+                                        <h2>Debian</h2>
+                                        <p><a target="_blank" href="https://www.debian.org">Debian</a> is a GNU/Linux distribution composed of free and open-source software.</p>
+
+                                        <a target="_blank" class="btn btn-float" role="button" href="//github.com/stemar/vagrant-debian-11">Debian 11</a>
+                                        <p>This Vagrant box contains stable versions:</p>
+
+                                        <table class="table-bordered table-specs">
+                                            <tr>
+                                                <td>Debian</td>
+                                                <td>Apache</td>
+                                                <td>MariaDB</td>
+                                                <td>PHP</td>
+                                            </tr>
+                                            <tr>
+                                                <td>11</td>
+                                                <td>2.4</td>
+                                                <td>10.6</td>
+                                                <td>8.1</td>
+                                            </tr>
+                                        </table>
+
+                                        <a target="_blank" class="btn btn-float" role="button" href="//github.com/stemar/vagrant-debian-10">Debian 10</a>
+                                        <p>This Vagrant box contains stable versions:</p>
+
+                                        <table class="table-bordered table-specs">
+                                            <tr>
+                                                <td>Debian</td>
+                                                <td>Apache</td>
+                                                <td>MariaDB</td>
+                                                <td>PHP</td>
+                                            </tr>
+                                            <tr>
+                                                <td>10</td>
+                                                <td>2.4</td>
+                                                <td>10.6</td>
+                                                <td>8.1</td>
+                                            </tr>
+                                        </table>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
+
+                    </div>
+                    <div class="col-s-12 col-m-5">
+
+                        <section>
+                            <div class="box">
+
+                                <h3>Why provisioning in Bash?</h3>
+
+                                <p>When you add or remove Linux OS packages to your desktop or laptop, you must use Bash commands to execute their download and installation.</p>
+                                <p>If you have to add or remove packages on a Linux server, you must use Bash commands too.</p>
+                                <p>So the provisiong script <code>provision.sh</code> is written in Bash for familiarity.</p>
+                                <p>No need to learn Chef, Puppet or Ansible.</p>
+                                <p>No need to overengineer the provisioning script.</p>
+                                <p>The Bash commands in <code>provision.sh</code> can even be copied and pasted as is in another machine; not Chef, Puppet or Ansible commands.</p>
+
+                            </div>
+                        </section>
+
+                        <section>
+                            <div class="box">
+
+                                <h3>Flexible configuration</h3>
+
+                                <p>You can add, edit and remove OS packages and repositories from <code>provision.sh</code></p>
+                                <p>You can add, edit and remove <code>settings.yaml</code> values.</p>
+                                <p>The <code>settings.yaml</code> values feeds <code>Vagrantfile</code> that builds the virtual machine.</p>
+
+                            </div>
+                        </section>
+
+                        <section>
+                            <div class="box">
+
+                                <h3>settings.yaml</h3>
+                                <p>
+                                    This file feeds values to <code>Vagrantfile</code> so you should edit both files at the same time.
+                                </p>
+
+                                <h4>:machine</h4>
+                                <p>
+                                    <code>:machine</code> has operating system and <a target="_blank" href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a> values.
+                                </p>
+
+                                <h4>:forwarded_ports</h4>
+                                <p>
+                                    <code>:forwarded_ports</code> has arrays of host/guest values:
+                                    the <code>:host</code> value is the port of the physical machine
+                                    while the <code>:guest</code> value is the port of the virtual machine.
+                                </p>
+                                <p>
+                                    <strong>To avoid port collision, you must change these port values before running more than one Vagrant box at the same time.</strong>
+                                </p>
+
+                                <h4>:synced_folder</h4>
+                                <p>
+                                    <code>:synced_folder</code> has paths of the synchronized directories:
+                                    the <code>:host</code> value is the path of your projects on the physical machine
+                                    while the <code>:guest</code> value is the path of your projects inside the virtual machine.                                    
+                                </p>
+
+                                <h4>:copy_files</h4>
+                                <p>                                    
+                                    <code>:copy_files</code> has arrays of source/destination values:
+                                    the <code>:source</code> value is the path of the file you want to copy from the physical machine
+                                    while the <code>:destination</code> value is the path of the file you want to copy to the virtual machine.
+                                </p>
+                                <p>
+                                    <strong>These files are not synchronized; they are copied at provisioning only.</strong>
+                                </p>
+                                <p>
+                                    Here we want to clone configuration files so that the same configuration applies on the host and the guest,
+                                    instead of having different configurations for Git and Subversion in and out of the VM.
+                                </p>
+
+                                <h4>:php_error_reporting</h4>
+                                <p>
+                                    <code>:php_error_reporting</code> is the PHP error reporting value in PHP constants
+                                    which feeds the <code>config/php.ini.htaccess</code> file to display PHP errors on a page in development.
+                                </p>
+
+                                <p>Example <code>settings.yaml</code>:</p>
+                                <pre>
+---
+:machine:
+  :hostname: rockylinux-8
+  :timezone: Canada/Pacific
+  :memory: 3072 # 3GB RAM
+  :cpus: 1
+
+:forwarded_ports:
+# SSH
+- :id: ssh
+  :host: 2200
+  :guest: 22
+# HTTP
+- :host: 8000
+  :guest: 80
+# MySQL
+- :host: 33060
+  :guest: 3306
+
+:synced_folder:
+  :host: ~/Code
+  :guest: /home/vagrant/Code
+
+:copy_files:
+- :source: ~/.ssh
+  :destination: /home/vagrant/.ssh
+- :source: ~/.gitconfig
+  :destination: /home/vagrant/.gitconfig
+
+:php_error_reporting: E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT
+...
+                                </pre>
+
+                                <p>
+                                    Imagine, you can make this <code>yaml</code> file work for you and your <code>Vagrantfile</code>.
+                                </p>
+                            </div>
+                        </section>
+<!--
+                        <section>
+                            <div class="box">
+
+                                <h3>Specs</h3>
+
+                                <ul>
+                                    <li>Custom <code>.bashrc</code> to modify bash settings inside the virtual machine.
+                                    <li>Configure LAMP settings from the host machine instead of inside the virtual machine.
+                                    <li>Provisioning in <code>bash</code> because the commands can easily be copied/pasted inside a VM or server for troubleshooting.
+                                    <li>Keep multiple Vagrant boxes in a separate location than your projects/code location.
+                                        <ul>
+                                            <li><code>.vagrant/</code> is created independently within each VM directory.
+                                            <li>Multiple Vagrant boxes can be run concurrently from separate terminal tabs.
+                                            <li>Avoid port collision by editing <code>:forwarded_ports</code> values in <code>settings.yaml</code>.
+                                        </ul>
+                                    <li>Copied SSH keys to use the same in and out of VM.
+                                    <li>Copied Git configuration to use the same in and out of VM.
+                                    <li>Synchronized projects/code directories.
+                                    <li>Apache serves any local website at <code>http://domain.com.localhost:8000</code> with <a target="_blank" href="https://httpd.apache.org/docs/2.4/mod/mod_vhost_alias.html">VirtualDocumentRoot</a>.
+                                    <li>Add more VirtualHost blocks from the host machine and re-provision the Vagrant box.
+                                    <li>MariaDB and Adminer with no password for username <code>root</code>.
+                                        <ul>
+                                            <li>Avoid writing a password a zillion times through development.
+                                        </ul>
+                                    <li>Adminer served at <code>http://localhost:8000/adminer.php</code>.
+                                    <li>Development-specific <code>php.ini</code> settings from <code>.htaccess</code> for all local websites.
+                                    <li>Python installed.
+                                </ul>
+
+                            </div>
+                        </section>
+-->
+                    </div>
+                </div>
+
+            </div><!--<div class="container"-->
+
+        </main>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/ResponsiveBP/Responsive@master/build/responsive.min.js"></script>
+    </body>
+</html>
