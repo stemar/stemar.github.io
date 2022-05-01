@@ -264,7 +264,124 @@
                     <div class="col-s-12 col-m-5">
 
                         <section>
+                            <div class="box">
 
+                                <h2>Why provisioning in Bash?</h2>
+
+                                <p>When you add or remove Linux OS packages to your desktop or laptop, you must use Bash commands to execute their download and installation.</p>
+                                <p>If you had to add or remove packages on a Linux server, you must use Bash commands too.</p>
+                                <p>So the provisiong script <code>provision.sh</code> is written in Bash for familiarity.</p>
+                                <p>No need to learn Chef, Puppet or Ansible.</p>
+                                <p>No need to overengineer the provisioning script.</p>
+                                <p>The Bash commands in <code>provision.sh</code> can even be copied and pasted as is on another machine; not Chef, Puppet or Ansible commands.</p>
+
+                            </div>
+                        </section>
+
+                        <section>
+                            <div class="box">
+
+                                <h2>Flexible configuration</h2>
+
+                                <p>You can add, edit and remove OS packages and repositories from <code>provision.sh</code></p>
+                                <p>You can add, edit and remove <code>settings.yaml</code> values.</p>
+                                <p>The <code>settings.yaml</code> values feeds <code>Vagrantfile</code> that builds the virtual machine.</p>
+
+                            </div>
+                        </section>
+
+                        <section>
+                            <div class="box">
+
+                                <h2>settings.yaml</h2>
+                                <p>
+                                    This file feeds values to <code>Vagrantfile</code> so you should edit both files at the same time.
+                                </p>
+
+                                <h4>:machine</h4>
+                                <p>
+                                    <code>:machine</code> has operating system and <a target="_blank" href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a> values.
+                                </p>
+
+                                <h4>:forwarded_ports</h4>
+                                <p>
+                                    <code>:forwarded_ports</code> has arrays of host/guest values:
+                                    the <code>:host</code> value is the port of the physical machine
+                                    while the <code>:guest</code> value is the port of the virtual machine.
+                                </p>
+                                <p>
+                                    <strong>To avoid port collision, you must change these port values before running more than one Vagrant box at the same time.</strong>
+                                </p>
+
+                                <h4>:synced_folder</h4>
+                                <p>
+                                    <code>:synced_folder</code> has paths of the synchronized directories:
+                                    the <code>:host</code> value is the path of your projects on the physical machine
+                                    while the <code>:guest</code> value is the path of your projects inside the virtual machine.                                    
+                                </p>
+
+                                <h4>:copy_files</h4>
+                                <p>                                    
+                                    <code>:copy_files</code> has arrays of source/destination values:
+                                    the <code>:source</code> value is the path of the file you want to copy from the physical machine
+                                    while the <code>:destination</code> value is the path of the file you want to copy to the virtual machine.
+                                </p>
+                                <p>
+                                    <strong>These files are not synchronized; they are copied at provisioning only.</strong>
+                                </p>
+                                <p>
+                                    Here we want to clone configuration files so that the same configuration applies on the host and the guest,
+                                    instead of having different configurations for Git and Subversion in and out of the VM.
+                                </p>
+
+                                <h4>:php_error_reporting</h4>
+                                <p>
+                                    <code>:php_error_reporting</code> is the PHP error reporting value in PHP constants
+                                    which feeds the <code>config/php.ini.htaccess</code> file to display PHP errors on a page in development.
+                                </p>
+
+                                <p>Example <code>settings.yaml</code>:</p>
+                                <pre>
+---
+:machine:
+  :hostname: rockylinux-8
+  :timezone: Canada/Pacific
+  :memory: 3072 # 3GB RAM
+  :cpus: 1
+
+:forwarded_ports:
+# SSH
+- :id: ssh
+  :host: 2200
+  :guest: 22
+# HTTP
+- :host: 8000
+  :guest: 80
+# MySQL
+- :host: 33060
+  :guest: 3306
+
+:synced_folder:
+  :host: ~/Code
+  :guest: /home/vagrant/Code
+
+:copy_files:
+- :source: ~/.ssh
+  :destination: /home/vagrant/.ssh
+- :source: ~/.gitconfig
+  :destination: /home/vagrant/.gitconfig
+
+:php_error_reporting: E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT
+...
+                                </pre>
+
+                                <p>
+                                    Imagine, you can make this <code>yaml</code> file work for you and your <code>Vagrantfile</code>.
+                                </p>
+                            </div>
+                        </section>
+<!--
+                        <section>
                             <div class="box">
 
                                 <h2>Specs</h2>
@@ -294,9 +411,8 @@
                                 </ul>
 
                             </div>
-
                         </section>
-
+-->
                     </div>
                 </div>
 
