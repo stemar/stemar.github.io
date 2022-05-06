@@ -407,11 +407,11 @@ git clone --depth 1 https://github.com/stemar/vagrant-ubuntu-20-04.git ubuntu-20
                     </div>
                 </div>
 
-                <div class="row">
+                            <!-- <div class="box"> -->
+                <div class="row box">
                     <div class="col-s-12 col-m-5">
 
                         <section>
-                            <div class="box">
 
                                 <p>Example <code>settings.yaml</code>:</p>
                                 <pre>
@@ -419,10 +419,10 @@ git clone --depth 1 https://github.com/stemar/vagrant-ubuntu-20-04.git ubuntu-20
 :machine:
   # https://app.vagrantup.com/bento/boxes/rockylinux-8
   :box: bento/rockylinux-8 # 64GB HDD
-  :hostname: rockylinux-8
-  :timezone: Canada/Pacific
   :memory: 3072 # 3GB RAM
   :cpus: 1
+  :hostname: rockylinux-8
+  :timezone: Canada/Pacific
 
 :forwarded_ports:
 # SSH
@@ -450,14 +450,12 @@ git clone --depth 1 https://github.com/stemar/vagrant-ubuntu-20-04.git ubuntu-20
 ...
 </pre>
 
-                            </div>
                         </section>
 
                     </div>
                     <div class="col-s-12 col-m-7">
 
                         <section>
-                            <div class="box">
 
                                 <h3>settings.yaml</h3>
                                 <p>
@@ -506,17 +504,17 @@ git clone --depth 1 https://github.com/stemar/vagrant-ubuntu-20-04.git ubuntu-20
                                     which feeds the <code>config/php.ini.htaccess</code> file to display PHP errors on a page in development.
                                 </p>
 
-                            </div>
                         </section>
 
                     </div>
                 </div>
+                            <!-- </div> -->
 
-                <div class="row">
-                    <div class="col-s-12 col-m-6">
+                <div class="row box">
+                    <div class="col-s-12 col-m-7">
 
                         <section>
-                            <div class="box">
+                            <!-- <div class="box"> -->
 
                                 <p>Example <code>Vagrantfile</code>:</p>
                                 <pre>
@@ -557,14 +555,14 @@ Vagrant.configure("2") do |config|
 end
 </pre>
 
-                            </div>
+                            <!-- </div> -->
                         </section>
 
                     </div>
-                    <div class="col-s-12 col-m-6">
+                    <div class="col-s-12 col-m-5">
 
                         <section>
-                            <div class="box">
+                            <!-- <div class="box"> -->
 
                                 <h3>Vagrantfile</h3>
                                 <p>This Ruby file builds the Vagrant box from the values of <code>settings.yaml</code>.</p>
@@ -572,17 +570,17 @@ end
                                 <p>Some Bash variables are passed to the <code>provision.sh</code> script.</p>
                                 <p>This page explains the configuration settings: <a target="_blank" href="https://www.vagrantup.com/docs/vagrantfile/machine_settings">Vagrant Machine Settings</a></p>
 
-                            </div>
+                            <!-- </div> -->
                         </section>
 
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row box">
                     <div class="col-s-12 col-m-6">
 
                         <section>
-                            <div class="box">
+                            <!-- <div class="box"> -->
 
                                 <p>Example <code>php.ini.htaccess</code>:</p>
                                 <pre>
@@ -609,31 +607,31 @@ php_value post_max_size 512M
 php_value memory_limit 512M
 </pre>
 
-                            </div>
+                            <!-- </div> -->
                         </section>
 
                     </div>
                     <div class="col-s-12 col-m-6">
 
                         <section>
-                            <div class="box">
+                            <!-- <div class="box"> -->
 
                                 <h3>php.ini.htaccess</h3>
                                 <p>This file will be copied to <code>/var/www/.htaccess</code> to set <code>php.ini</code> settings for a development environment.</p>
                                 <p><em>PHP in this VM is run as an Apache module, not as FastCGI.</em> So we use <code>.htaccess</code> to set <code>php.ini</code> settings.</p>
                                 <p>It allows PHP to display errors on the page, turn off error logging, set <code>error_reporting</code> to the value from <code>settings.yaml</code>, and set decent memory size values.</p>
 
-                            </div>
+                            <!-- </div> -->
                         </section>
 
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row box">
                     <div class="col-s-12 col-m-6">
 
                         <section>
-                            <div class="box">
+                            <!-- <div class="box"> -->
 
                                 <p>Example <code>virtualhost.conf</code>:</p>
                                 <pre>
@@ -693,14 +691,14 @@ php_value memory_limit 512M
 &lt;/VirtualHost&gt;
 </pre>
 
-                            </div>
+                            <!-- </div> -->
                         </section>
 
                     </div>
                     <div class="col-s-12 col-m-6">
 
                         <section>
-                            <div class="box">
+                            <!-- <div class="box"> -->
 
                                 <h3>virtualhost.conf</h3>
                                 <p>You can create <strong>DocumentRoot</strong> VirtualHost blocks one by one for all the projects you want Apache to serve.</p>
@@ -797,7 +795,7 @@ php_value memory_limit 512M
 
                                 <p>This page explains the VirtualDocumentRoot Directive and its options: <a target="_blank" href="https://httpd.apache.org/docs/2.4/mod/mod_vhost_alias.html">Apache Module mod_vhost_alias</a></p>
 
-                            </div>
+                            <!-- </div> -->
                         </section>
 
                     </div>

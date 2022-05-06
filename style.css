@@ -222,89 +222,6 @@ a.btn-float {
 /**
  * Sections
  */
-section {
-    margin-bottom: 2em;
-    margin-top: -3em;
-    padding-top: 3em;
-}
-section .box {
-    background-color: white;
-    padding: 2em;
-}
-section .box h2:first-of-type {
-    margin-top: 0;
-}
-section .box .img-float {
-    float: right;
-    margin-left: 0.5rem;
-    max-width: 10rem;
-}
-section .box .img-float img[src*=".svg"] {
-    width: 100%;
-}
-#Skills h3 {
-    margin-top: 2em;
-}
-#Skills h2 + h3 {
-    margin-top: 1em;
-}
-#Years_experience p,
-#Skills p {
-    margin-bottom: 0.25em;
-}
-#Skills a,
-#Skills a:visited {
-    color: inherit;
-}
-@media (min-width: 48em) {
-    #Projects h3,
-    #Education .row h4 {
-        margin-top: 0;
-    }
-}
-#Projects .row,
-#Education .row {
-    margin-top: 2em;
-}
-#Projects p i.fa {
-    font-size: inherit;
-}
-#Projects img,
-#Education img {
-    border: 1px solid #ddd;
-}
-#Projects .two-img img {
-    border: 0;
-    margin: 0 auto;
-    padding: 0 .5em;
-}
-#Education h3 {
-    margin-top: 2em;
-}
-#Education h2 + h3 {
-    margin-top: 1em;
-}
-#Years_experience h2 > span,
-#Projects h3 > span,
-#Education h3 > span {
-    color: #999;
-    font-size: smaller;
-}
-#Education h4 > span {
-    color: #a00;
-}
-#Education p + ul,
-#GitHub p + ul {
-    margin-bottom: 0;
-}
-#Education p,
-#GitHub p {
-    margin-bottom: inherit;
-}
-#GitHub p,
-#GitHub li {
-    line-height: 1.5;
-}
 .box {
     background: white;
     border-radius: 5px;
@@ -316,6 +233,31 @@ section .box .img-float img[src*=".svg"] {
 .box > p:last-child,
 .box > ul:last-child {
     margin-bottom: 0;
+}
+section {
+    margin-bottom: 2em;
+    margin-top: -3em;
+    padding-top: 3em;
+}
+.row.box {
+    padding: 1em;
+}
+section .box {
+    padding: 2em;
+}
+.row.box h2:first-of-type,
+section .box h2:first-of-type {
+    margin-top: 0;
+}
+.row.box .img-float,
+section .box .img-float {
+    float: right;
+    margin-left: 0.5rem;
+    max-width: 10rem;
+}
+.row.box .img-float img[src*=".svg"],
+section .box .img-float img[src*=".svg"] {
+    width: 100%;
 }
 
 
