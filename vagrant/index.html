@@ -265,11 +265,11 @@
                         <section>
                             <div class="box">
 
-                                <h3>Why provisioning in Bash?</h3>
+                                <h3>Provisioning in Bash</h3>
 
                                 <p>When you add or remove Linux OS packages to your desktop or laptop, you must use Bash commands to execute their download and installation.</p>
                                 <p>If you have to add or remove packages on a Linux server, you must use Bash commands too.</p>
-                                <p>So the provisiong script <code>provision.sh</code> is written in Bash for familiarity.</p>
+                                <p>So the provisioning script <code>provision.sh</code> is written in Bash for familiarity.</p>
                                 <p>No need to learn Chef, Puppet or Ansible.</p>
                                 <p>No need to overengineer the provisioning script.</p>
                                 <p>The Bash commands in <code>provision.sh</code> can even be copied and pasted as is in another machine; not Chef, Puppet or Ansible commands.</p>
@@ -282,12 +282,179 @@
 
                                 <h3>Flexible configuration</h3>
 
-                                <p>You can add, edit and remove OS packages and repositories from <code>provision.sh</code></p>
-                                <p>You can add, edit and remove <code>settings.yaml</code> values.</p>
-                                <p>The <code>settings.yaml</code> values feeds <code>Vagrantfile</code> that builds the virtual machine.</p>
+                                <p>You can add, edit and remove OS packages and repositories from the <code>provision.sh</code> file.</p>
+                                <p>
+                                    You can add, edit and remove <code>settings.yaml</code> values.
+                                    The <code>settings.yaml</code> values feeds <code>Vagrantfile</code> that builds the virtual machine.
+                                </p>
 
                             </div>
                         </section>
+
+                        <section>
+                            <div class="box">
+
+                                <h3>Multiple Vagrant boxes</h3>
+
+                                <p>No need to create one global <code>Vagrantfile</code> with multiple boxes in it, as explained here: <a target="_blank" href="https://www.vagrantup.com/docs/multi-machine">Multi-Machine</a></p>
+
+                                <p>If you clone many boxes in the same parent directory <code>~/VM</code>:</p>
+
+                                <pre>
+mkdir -p ~/VM && cd $_
+git clone --depth 1 https://github.com/stemar/vagrant-debian-11.git debian-11
+git clone --depth 1 https://github.com/stemar/vagrant-rockylinux-8.git rockylinux-8
+git clone --depth 1 https://github.com/stemar/vagrant-ubuntu-20-04.git ubuntu-20-04
+</pre>
+
+                                <pre>
+~/VM
+├── debian-11
+│   ├── config
+│   │   ├── MariaDB.list
+│   │   ├── adminer.conf
+│   │   ├── bash_aliases
+│   │   ├── localhost.conf
+│   │   ├── php.ini.htaccess
+│   │   ├── php.list
+│   │   └── virtualhost.conf
+│   ├── LICENSE
+│   ├── README.md
+│   ├── Vagrantfile
+│   ├── provision.sh
+│   └── settings.yaml
+├── rockylinux-8
+│   ├── config
+│   │   ├── 00-mpm.conf
+│   │   ├── MariaDB.repo
+│   │   ├── adminer.conf
+│   │   ├── bashrc
+│   │   ├── gemrc
+│   │   ├── localhost.conf
+│   │   ├── localhost.crt
+│   │   ├── localhost.key
+│   │   ├── php.ini.htaccess
+│   │   └── virtualhost.conf
+│   ├── LICENSE
+│   ├── README.md
+│   ├── Vagrantfile
+│   ├── provision.sh
+│   └── settings.yaml
+└── ubuntu-20-04
+    ├── config
+    │   ├── MariaDB.list
+    │   ├── adminer.conf
+    │   ├── bash_aliases
+    │   ├── localhost.conf
+    │   ├── php.ini.htaccess
+    │   └── virtualhost.conf
+    ├── LICENSE
+    ├── README.md
+    ├── Vagrantfile
+    ├── provision.sh
+    └── settings.yaml
+</pre>
+
+                                <p>You can <code>vagrant up</code> each of them in their own tab in your terminal.</p>
+                                <p>They can run concurrently by modifying their <code>:host</code> port in <code>settings.yaml</code>.</p>
+                                <p>For example:</p>
+
+                                <table class="table-bordered table-specs" style="font-size:smaller;">
+                                    <tr>
+                                        <th>&nbsp;</th>
+                                        <th>rockylinux-8</th>
+                                        <th>debian-11</th>
+                                        <th>ubuntu-20-04</th>
+                                    </tr>
+                                    <tr>
+                                        <th>SSH</th>
+                                        <td>2200</td>
+                                        <td>2201</td>
+                                        <td>2202</td>
+                                    </tr>
+                                    <tr>
+                                        <th>HTTP</th>
+                                        <td>8000</td>
+                                        <td>8001</td>
+                                        <td>8002</td>
+                                    </tr>
+                                    <tr>
+                                        <th>dB</th>
+                                        <td>33060</td>
+                                        <td>33061</td>
+                                        <td>33062</td>
+                                    </tr>
+                                </table>
+
+                                <p>They can be booted or halted, modified, provisioned independently.</p>
+                                <p>
+                                    When you provision a box for the first time, the <code>.vagrant</code> directory will be created under its parent.
+                                    It will not be created globally for all boxes.
+                                </p>
+
+                                <pre>
+~/VM
+...
+└── ubuntu-20-04
+    ├── .vagrant
+    ├── config
+    └── ...
+</pre>
+
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-s-12 col-m-5">
+
+                        <section>
+                            <div class="box">
+
+                                <p>Example <code>settings.yaml</code>:</p>
+                                <pre>
+---
+:machine:
+  # https://app.vagrantup.com/bento/boxes/rockylinux-8
+  :box: bento/rockylinux-8 # 64GB HDD
+  :hostname: rockylinux-8
+  :timezone: Canada/Pacific
+  :memory: 3072 # 3GB RAM
+  :cpus: 1
+
+:forwarded_ports:
+# SSH
+- :id: ssh
+  :host: 2200
+  :guest: 22
+# HTTP
+- :host: 8000
+  :guest: 80
+# dB
+- :host: 33060
+  :guest: 3306
+
+:synced_folder:
+- :host: ~/Code
+  :guest: /home/vagrant/Code
+
+:copy_files:
+- :source: ~/.ssh
+  :destination: /home/vagrant/.ssh
+- :source: ~/.gitconfig
+  :destination: /home/vagrant/.gitconfig
+
+:php_error_reporting: E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT
+...
+</pre>
+
+                            </div>
+                        </section>
+
+                    </div>
+                    <div class="col-s-12 col-m-7">
 
                         <section>
                             <div class="box">
@@ -299,7 +466,7 @@
 
                                 <h4>:machine</h4>
                                 <p>
-                                    <code>:machine</code> has operating system and <a target="_blank" href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a> values.
+                                    <code>:machine</code> has the values for some Bash settings, virtual hardware, and the box to download.
                                 </p>
 
                                 <h4>:forwarded_ports</h4>
@@ -316,7 +483,7 @@
                                 <p>
                                     <code>:synced_folder</code> has paths of the synchronized directories:
                                     the <code>:host</code> value is the path of your projects on the physical machine
-                                    while the <code>:guest</code> value is the path of your projects inside the virtual machine.                                    
+                                    while the <code>:guest</code> value is the path of your projects inside the virtual machine.
                                 </p>
 
                                 <h4>:copy_files</h4>
@@ -339,79 +506,351 @@
                                     which feeds the <code>config/php.ini.htaccess</code> file to display PHP errors on a page in development.
                                 </p>
 
-                                <p>Example <code>settings.yaml</code>:</p>
-                                <pre>
----
-:machine:
-  :hostname: rockylinux-8
-  :timezone: Canada/Pacific
-  :memory: 3072 # 3GB RAM
-  :cpus: 1
-
-:forwarded_ports:
-# SSH
-- :id: ssh
-  :host: 2200
-  :guest: 22
-# HTTP
-- :host: 8000
-  :guest: 80
-# MySQL
-- :host: 33060
-  :guest: 3306
-
-:synced_folder:
-  :host: ~/Code
-  :guest: /home/vagrant/Code
-
-:copy_files:
-- :source: ~/.ssh
-  :destination: /home/vagrant/.ssh
-- :source: ~/.gitconfig
-  :destination: /home/vagrant/.gitconfig
-
-:php_error_reporting: E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT
-...
-                                </pre>
-
-                                <p>
-                                    Imagine, you can make this <code>yaml</code> file work for you and your <code>Vagrantfile</code>.
-                                </p>
                             </div>
                         </section>
-<!--
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-s-12 col-m-6">
+
                         <section>
                             <div class="box">
 
-                                <h3>Specs</h3>
+                                <p>Example <code>Vagrantfile</code>:</p>
+                                <pre>
+require 'yaml'
+dir = File.join(File.dirname(File.expand_path(__FILE__)))
+settings = YAML.load_file("#{dir}/settings.yaml")
 
-                                <ul>
-                                    <li>Custom <code>.bashrc</code> to modify bash settings inside the virtual machine.
-                                    <li>Configure LAMP settings from the host machine instead of inside the virtual machine.
-                                    <li>Provisioning in <code>bash</code> because the commands can easily be copied/pasted inside a VM or server for troubleshooting.
-                                    <li>Keep multiple Vagrant boxes in a separate location than your projects/code location.
-                                        <ul>
-                                            <li><code>.vagrant/</code> is created independently within each VM directory.
-                                            <li>Multiple Vagrant boxes can be run concurrently from separate terminal tabs.
-                                            <li>Avoid port collision by editing <code>:forwarded_ports</code> values in <code>settings.yaml</code>.
-                                        </ul>
-                                    <li>Copied SSH keys to use the same in and out of VM.
-                                    <li>Copied Git configuration to use the same in and out of VM.
-                                    <li>Synchronized projects/code directories.
-                                    <li>Apache serves any local website at <code>http://domain.com.localhost:8000</code> with <a target="_blank" href="https://httpd.apache.org/docs/2.4/mod/mod_vhost_alias.html">VirtualDocumentRoot</a>.
-                                    <li>Add more VirtualHost blocks from the host machine and re-provision the Vagrant box.
-                                    <li>MariaDB and Adminer with no password for username <code>root</code>.
-                                        <ul>
-                                            <li>Avoid writing a password a zillion times through development.
-                                        </ul>
-                                    <li>Adminer served at <code>http://localhost:8000/adminer.php</code>.
-                                    <li>Development-specific <code>php.ini</code> settings from <code>.htaccess</code> for all local websites.
-                                    <li>Python installed.
-                                </ul>
+Vagrant.require_version ">= 2.0.0"
+Vagrant.configure("2") do |config|
+  config.vm.define settings[:machine][:hostname]
+
+  config.vm.box = "#{settings[:machine][:box]}"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.name   = settings[:machine][:hostname]
+    vb.memory = settings[:machine][:memory]
+    vb.cpus   = settings[:machine][:cpus]
+  end
+
+  config.vm.hostname = settings[:machine][:hostname]
+
+  settings[:forwarded_ports].each do |port_options|
+    config.vm.network :forwarded_port, port_options
+  end
+
+  config.vm.synced_folder settings[:synced_folder][:host], settings[:synced_folder][:guest], owner: "vagrant", group: "vagrant"
+
+  settings[:copy_files].each do |file_options|
+    config.vm.provision :file, file_options
+  end unless settings[:copy_files].nil?
+
+  config.vm.provision :shell, path: "provision.sh", env: {
+    "FORWARDED_PORT_80"   => settings[:forwarded_ports].find{|port| port[:guest] == 80}[:host],
+    "GUEST_SYNCED_FOLDER" => settings[:synced_folder][:guest],
+    "PHP_ERROR_REPORTING" => settings[:php_error_reporting],
+    "TIMEZONE"            => settings[:machine][:timezone]
+  }
+end
+</pre>
 
                             </div>
                         </section>
--->
+
+                    </div>
+                    <div class="col-s-12 col-m-6">
+
+                        <section>
+                            <div class="box">
+
+                                <h3>Vagrantfile</h3>
+                                <p>This Ruby file builds the Vagrant box from the values of <code>settings.yaml</code>.</p>
+                                <p>The VM is built from a <a target="_blank" href="https://chef.github.io/bento">Bento</a> VirtualBox download.</p>
+                                <p>Some Bash variables are passed to the <code>provision.sh</code> script.</p>
+                                <p>This page explains the configuration settings: <a target="_blank" href="https://www.vagrantup.com/docs/vagrantfile/machine_settings">Vagrant Machine Settings</a></p>
+
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-s-12 col-m-6">
+
+                        <section>
+                            <div class="box">
+
+                                <p>Example <code>php.ini.htaccess</code>:</p>
+                                <pre>
+# http://php.net/manual/en/configuration.changes.php
+# http://php.net/manual/en/ini.list.php
+
+# Development environment error settings
+php_flag display_startup_errors on
+php_flag display_errors on
+php_flag html_errors on
+php_flag ignore_repeated_errors off
+php_flag ignore_repeated_source off
+php_flag report_memleaks on
+php_flag track_errors on
+php_value docref_root 0
+php_value docref_ext 0
+php_flag log_errors off
+php_value log_errors_max_len 0
+php_value error_reporting PHP_ERROR_REPORTING_INT
+
+# Application settings
+php_value upload_max_filesize 512M
+php_value post_max_size 512M
+php_value memory_limit 512M
+</pre>
+
+                            </div>
+                        </section>
+
+                    </div>
+                    <div class="col-s-12 col-m-6">
+
+                        <section>
+                            <div class="box">
+
+                                <h3>php.ini.htaccess</h3>
+                                <p>This file will be copied to <code>/var/www/.htaccess</code> to set <code>php.ini</code> settings for a development environment.</p>
+                                <p><em>PHP in this VM is run as an Apache module, not as FastCGI.</em> So we use <code>.htaccess</code> to set <code>php.ini</code> settings.</p>
+                                <p>It allows PHP to display errors on the page, turn off error logging, set <code>error_reporting</code> to the value from <code>settings.yaml</code>, and set decent memory size values.</p>
+
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-s-12 col-m-6">
+
+                        <section>
+                            <div class="box">
+
+                                <p>Example <code>virtualhost.conf</code>:</p>
+                                <pre>
+# ------------------
+# Using DocumentRoot
+# ------------------
+# https://httpd.apache.org/docs/2.4/mod/core.html#documentroot
+#
+# GUEST_SYNCED_FOLDER/
+# └── example.com/
+#     ├── app/
+#     │   └── ...
+#     └── public/  <= DocumentRoot
+#         └── ...
+#
+&lt;VirtualHost *:80&gt;
+    # http://example.com.localhost:FORWARDED_PORT_80 => DocumentRoot
+    ServerName example.com.localhost
+    DocumentRoot GUEST_SYNCED_FOLDER/example.com/public
+
+    &lt;Directory GUEST_SYNCED_FOLDER/example.com&gt;
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    &lt;/Directory&gt;
+
+    ErrorLog /var/log/httpd/error_log
+    CustomLog /var/log/httpd/access_log combined
+&lt;/VirtualHost&gt;
+
+# -------------------------
+# Using VirtualDocumentRoot
+# -------------------------
+# https://httpd.apache.org/docs/2.4/mod/mod_vhost_alias.html
+#
+# GUEST_SYNCED_FOLDER/
+# └── domain.com/
+#     ├── app/
+#     │   └── ...
+#     └── www/     <= VirtualDocumentRoot
+#         └── ...
+#
+&lt;VirtualHost *:80&gt;
+    # http://domain.com.localhost:FORWARDED_PORT_80 => VirtualDocumentRoot
+    ServerAlias *.localhost
+    VirtualDocumentRoot GUEST_SYNCED_FOLDER/%-2+/www
+    UseCanonicalName Off
+
+    &lt;Directory GUEST_SYNCED_FOLDER&gt;
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    &lt;/Directory&gt;
+
+    ErrorLog /var/log/httpd/error_log
+    CustomLog /var/log/httpd/access_log combined
+&lt;/VirtualHost&gt;
+</pre>
+
+                            </div>
+                        </section>
+
+                    </div>
+                    <div class="col-s-12 col-m-6">
+
+                        <section>
+                            <div class="box">
+
+                                <h3>virtualhost.conf</h3>
+                                <p>You can create <strong>DocumentRoot</strong> VirtualHost blocks one by one for all the projects you want Apache to serve.</p>
+                                <p>But you could use a <strong>VirtualDocumentRoot</strong> VirtualHost block to dynamically serve any project that have a common name for their public directory.</p>
+                                <p>In the example on the left:</p>
+                                <ul>
+                                    <li><code>http://example.com.localhost:8000</code> is served from its <code>public</code> directory.</li>
+                                    <li><code>http://domain.com.localhost:8000</code> is served from its <code>www</code> directory.</li>
+                                </ul>
+                                <p>The order of all DocumentRoot VirtualHost blocks above a <code>VirtualDocumentRoot</code> VirtualHost block is essential for Apache.</p>
+
+                                <h4>DocumentRoot</h4>
+                                <p>Create any number of DocumentRoot VirtualHost blocks in the <code>virtualhost.conf</code> file with the <code>GUEST_SYNCED_FOLDER</code> variable for the VM's projects location.</p>
+                                <p>This page explains the DocumentRoot Directive and its options: <a target="_blank" href="https://httpd.apache.org/docs/2.4/mod/core.html#documentroot">Apache DocumentRoot Directive</a></p>
+
+                                <h4>VirtualDocumentRoot</h4>
+                                <ul>
+                                    <li>If you name your projects directory (<code>GUEST_SYNCED_FOLDER</code>) <code>/home/vagrant/Code</code>, and each project is either a domain name or a repository name; you could call the projects directory <code>/home/vagrant/Projects</code> or any name you like.</li>
+                                    <li>If the public directory to be served by the VM's web server is called <code>www</code>; you could call it <code>public</code> or any name you like.</li>
+                                </ul>
+
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <pre>
+~/Code
+├── domain.com
+│   ├── app
+│   │   └── ...
+│   ├── vendor
+│   │   └── ...
+│   ├── www
+│   │   └── ...
+│   └── ...
+└── app.example.org
+    ├── app
+    │   └── ...
+    ├── bin
+    │   └── ...
+    ├── vendor
+    │   └── ...
+    └── www
+        └── ...
+</pre>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <pre>
+~/Projects
+├── bookkeeping_app
+│   ├── app
+│   │   └── ...
+│   ├── bin
+│   │   └── ...
+│   ├── config
+│   │   └── ...
+│   ├── public
+│   │   └── ...
+│   └── ...
+└── management_app
+    ├── templates
+    │   └── ...
+    ├── vendor
+    │   └── ...
+    └── public
+        └── ...
+</pre>
+                                    </div>
+                                </div>
+
+                                <p>
+                                    Using <code>ServerAlias *.localhost</code> and<br>
+                                    <code>VirtualDocumentRoot /home/vagrant/Code/%-2+/www</code><br>
+                                    allow Apache to serve any of the following outside the VM, as long as these projects all have <code>www</code> as its public directory:
+                                </p>
+                                <ul>
+                                    <li>http://domain.com.localhost:8000</li>
+                                    <li>http://app.example.org.localhost:8000</li>
+                                    <li>http://any.number.of.sub.domains.example.com.localhost:8000</li>
+                                </ul>
+
+                                <p>If you want to change the ServerAlias to <code>ServerAlias *.dev</code>, then:</p>
+                                <ul>
+                                    <li>http://domain.com.dev:8000</li>
+                                    <li>http://app.example.org.dev:8000</li>
+                                    <li>http://any.number.of.sub.domains.example.com.dev:8000</li>
+                                </ul>
+                                <p>
+                                    It's good to have a ServerAlias value of <em>star dot something</em> to avoid confusing the browser's cache to serve a public site vs. a VM local site.
+                                    Keeping the standard name <code>*.localhost</code> makes it clear in the browser's address bar.
+                                </p>
+                                <p>Keeping the port visible in the URI is also useful when you have two VMs running and you want to serve two projects from two different ports in two browser tabs.</p>
+                                <p>No need to add entries in <code>/etc/hosts</code>.</p>
+
+                                <p>The second directory tree example above would use <code>VirtualDocumentRoot /home/vagrant/Code/%-2+/public</code> since all its projects use <code>public</code> as their public directory.</p>
+
+                                <p>This page explains the VirtualDocumentRoot Directive and its options: <a target="_blank" href="https://httpd.apache.org/docs/2.4/mod/mod_vhost_alias.html">Apache Module mod_vhost_alias</a></p>
+
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-s-12 col-m-6">
+
+                        <section>
+                            <div class="box">
+
+                                <h3>bashrc | bash_aliases</h3>
+
+                                <p>Add or edit any lines in these files.</p>
+
+                                <p>Example <code>bash_aliases</code> (Debian-based OS):</p>
+                                <pre>
+export HISTCONTROL=ignoreboth:erasedups
+alias ll="ls -lAFh --group-directories-first"
+alias nano="nano -cw"
+</pre>
+
+                                <p>Example <code>bashrc</code> (RHEL-based OS):</p>
+                                <pre>
+export HISTCONTROL=ignoreboth:erasedups
+export PS1="[\u@\H \w]$ "
+alias ll="ls -lAFh --group-directories-first"
+alias nano="nano -cw"
+
+# Make rbenv load automatically
+export RBENV_ROOT="${HOME}/.rbenv"
+export PATH="${RBENV_ROOT}/bin:${PATH}"
+eval "$(rbenv init -)"
+</pre>
+
+                            </div>
+                        </section>
+
+                    </div>
+                    <div class="col-s-12 col-m-6">
+
+                        <section>
+                            <div class="box">
+
+                                <h3>MariaDB and Adminer</h3>
+
+                                <p>MariaDB and Adminer are both set with no password for username <code>root</code> so you can avoid writing a password a zillion times through development.</p>
+
+                                <p>Adminer is served at <code>http://localhost:8000/adminer.php</code>.</p>
+
+                            </div>
+                        </section>
+
                     </div>
                 </div>
 

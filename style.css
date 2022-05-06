@@ -184,8 +184,12 @@ a.btn-float {
     margin-left: 0.5rem;
     margin-top: -0.25rem;
 }
+.table-specs tr:first-of-type th,
 .table-specs td {
     text-align: center;
+}
+.table-bordered tr:first-of-type th {
+    border-top: 0;
 }
 
 
