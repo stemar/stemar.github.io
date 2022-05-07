@@ -387,12 +387,19 @@ git clone --depth 1 https://github.com/stemar/vagrant-ubuntu-20-04.git ubuntu-20
                                 </table>
 
                                 <p>They can be booted or halted, modified, provisioned independently.</p>
-                                <p>
-                                    When you provision a box for the first time, the <code>.vagrant</code> directory will be created under its parent.
-                                    It will not be created globally for all boxes.
-                                </p>
 
-                                <pre>
+                                <div class="row">
+                                    <div class="col-xs-12 col-s-6">
+
+                                        <p>
+                                            When you provision a box for the first time, the <code>.vagrant</code> directory will be created under its parent.
+                                            It will not be created globally for all boxes.
+                                        </p>
+
+                                    </div>
+                                    <div class="col-xs-12 col-s-6">
+
+                                        <pre>
 ~/VM
 ...
 └── ubuntu-20-04
@@ -400,6 +407,9 @@ git clone --depth 1 https://github.com/stemar/vagrant-ubuntu-20-04.git ubuntu-20
     ├── config
     └── ...
 </pre>
+
+                                    </div>
+                                </div>
 
                             </div>
                         </section>
