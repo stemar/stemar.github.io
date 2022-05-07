@@ -191,6 +191,10 @@ a.btn-float {
 .table-bordered tr:first-of-type th {
     border-top: 0;
 }
+.alert {
+    background-color: #eee;
+    border-left-color: #a00;
+}
 
 
 /**
