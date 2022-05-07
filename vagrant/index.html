@@ -31,7 +31,7 @@
             <div class="container">
 
                 <div class="row">
-                    <div class="col-s-12 col-m-7">
+                    <div class="col-s-12 col-m-6">
 
                         <section>
                             <div class="box">
@@ -260,7 +260,7 @@
                         </section>
 
                     </div>
-                    <div class="col-s-12 col-m-5">
+                    <div class="col-s-12 col-m-6">
 
                         <section>
                             <div class="box">
@@ -296,7 +296,7 @@
 
                                 <h3>Multiple Vagrant boxes</h3>
 
-                                <p>No need to create one global <code>Vagrantfile</code> with multiple boxes in it, as explained here: <a target="_blank" href="https://www.vagrantup.com/docs/multi-machine">Multi-Machine</a></p>
+                                <p>No need to create one global <code>Vagrantfile</code> with multiple boxes in it, as explained here: <a target="_blank" href="https://www.vagrantup.com/docs/multi-machine">Multi-Machine</a>.</p>
 
                                 <p>If you clone many boxes in the same parent directory <code>~/VM</code>:</p>
 
@@ -407,7 +407,6 @@ git clone --depth 1 https://github.com/stemar/vagrant-ubuntu-20-04.git ubuntu-20
                     </div>
                 </div>
 
-                            <!-- <div class="box"> -->
                 <div class="row box">
                     <div class="col-s-12 col-m-5">
 
@@ -508,16 +507,27 @@ git clone --depth 1 https://github.com/stemar/vagrant-ubuntu-20-04.git ubuntu-20
 
                     </div>
                 </div>
-                            <!-- </div> -->
 
                 <div class="row box">
-                    <div class="col-s-12 col-m-7">
+                    <div class="col-s-12 col-m-4">
 
                         <section>
-                            <!-- <div class="box"> -->
 
-                                <p>Example <code>Vagrantfile</code>:</p>
-                                <pre>
+                            <h3>Vagrantfile</h3>
+                            <p>This Ruby file builds the Vagrant box from the values of <code>settings.yaml</code>.</p>
+                            <p>The VM is built from a <a target="_blank" href="https://chef.github.io/bento">Bento</a> VirtualBox download.</p>
+                            <p>Some Bash variables are passed to the <code>provision.sh</code> script.</p>
+                            <p>This page explains the configuration settings: <a target="_blank" href="https://www.vagrantup.com/docs/vagrantfile/machine_settings">Vagrant Machine Settings</a></p>
+
+                        </section>
+
+                    </div>
+                    <div class="col-s-12 col-m-8">
+
+                        <section>
+
+                            <p>Example <code>Vagrantfile</code>:</p>
+                            <pre>
 require 'yaml'
 dir = File.join(File.dirname(File.expand_path(__FILE__)))
 settings = YAML.load_file("#{dir}/settings.yaml")
@@ -555,22 +565,6 @@ Vagrant.configure("2") do |config|
 end
 </pre>
 
-                            <!-- </div> -->
-                        </section>
-
-                    </div>
-                    <div class="col-s-12 col-m-5">
-
-                        <section>
-                            <!-- <div class="box"> -->
-
-                                <h3>Vagrantfile</h3>
-                                <p>This Ruby file builds the Vagrant box from the values of <code>settings.yaml</code>.</p>
-                                <p>The VM is built from a <a target="_blank" href="https://chef.github.io/bento">Bento</a> VirtualBox download.</p>
-                                <p>Some Bash variables are passed to the <code>provision.sh</code> script.</p>
-                                <p>This page explains the configuration settings: <a target="_blank" href="https://www.vagrantup.com/docs/vagrantfile/machine_settings">Vagrant Machine Settings</a></p>
-
-                            <!-- </div> -->
                         </section>
 
                     </div>
@@ -580,10 +574,9 @@ end
                     <div class="col-s-12 col-m-6">
 
                         <section>
-                            <!-- <div class="box"> -->
 
-                                <p>Example <code>php.ini.htaccess</code>:</p>
-                                <pre>
+                            <p>Example <code>php.ini.htaccess</code>:</p>
+                            <pre>
 # http://php.net/manual/en/configuration.changes.php
 # http://php.net/manual/en/ini.list.php
 
@@ -607,21 +600,18 @@ php_value post_max_size 512M
 php_value memory_limit 512M
 </pre>
 
-                            <!-- </div> -->
                         </section>
 
                     </div>
                     <div class="col-s-12 col-m-6">
 
                         <section>
-                            <!-- <div class="box"> -->
 
-                                <h3>php.ini.htaccess</h3>
-                                <p>This file will be copied to <code>/var/www/.htaccess</code> to set <code>php.ini</code> settings for a development environment.</p>
-                                <p><em>PHP in this VM is run as an Apache module, not as FastCGI.</em> So we use <code>.htaccess</code> to set <code>php.ini</code> settings.</p>
-                                <p>It allows PHP to display errors on the page, turn off error logging, set <code>error_reporting</code> to the value from <code>settings.yaml</code>, and set decent memory size values.</p>
+                            <h3>php.ini.htaccess</h3>
+                            <p>This file will be copied to <code>/var/www/.htaccess</code> to set <code>php.ini</code> settings for a development environment.</p>
+                            <p><em>PHP in this VM is run as an Apache module, not as FastCGI.</em> So we use <code>.htaccess</code> to set <code>php.ini</code> settings.</p>
+                            <p>It allows PHP to display errors on the page, turn off error logging, set <code>error_reporting</code> to the value from <code>settings.yaml</code>, and set decent memory size values.</p>
 
-                            <!-- </div> -->
                         </section>
 
                     </div>
@@ -631,10 +621,111 @@ php_value memory_limit 512M
                     <div class="col-s-12 col-m-6">
 
                         <section>
-                            <!-- <div class="box"> -->
 
-                                <p>Example <code>virtualhost.conf</code>:</p>
-                                <pre>
+                            <h3>virtualhost.conf</h3>
+                            <p>You can create <strong>DocumentRoot</strong> VirtualHost blocks one by one for all the projects you want Apache to serve.</p>
+                            <p>But you could use a <strong>VirtualDocumentRoot</strong> VirtualHost block to dynamically serve any project that have a common name for their public directory.</p>
+                            <p>In the example on the left:</p>
+                            <ul>
+                                <li><code>http://example.com.localhost:8000</code> is served from its <code>public</code> directory.</li>
+                                <li><code>http://domain.com.localhost:8000</code> is served from its <code>www</code> directory.</li>
+                            </ul>
+                            <p>The order of all DocumentRoot VirtualHost blocks above a <code>VirtualDocumentRoot</code> VirtualHost block is essential for Apache.</p>
+
+                            <h4>DocumentRoot</h4>
+                            <p>Create any number of DocumentRoot VirtualHost blocks in the <code>virtualhost.conf</code> file with the <code>GUEST_SYNCED_FOLDER</code> variable for the VM's projects location.</p>
+                            <p>This page explains the DocumentRoot Directive and its options: <a target="_blank" href="https://httpd.apache.org/docs/2.4/mod/core.html#documentroot">Apache DocumentRoot Directive</a></p>
+
+                            <h4>VirtualDocumentRoot</h4>
+                            <ul>
+                                <li>If you name your projects directory (<code>GUEST_SYNCED_FOLDER</code>) <code>/home/vagrant/Code</code>, and each project is either a domain name or a repository name; you could call the projects directory <code>/home/vagrant/Projects</code> or any name you like.</li>
+                                <li>If the public directory to be served by the VM's web server is called <code>www</code>; you could call it <code>public</code> or any name you like.</li>
+                            </ul>
+
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <pre>
+~/Code
+├── domain.com
+│   ├── app
+│   │   └── ...
+│   ├── vendor
+│   │   └── ...
+│   ├── www
+│   │   └── ...
+│   └── ...
+└── app.example.org
+    ├── app
+    │   └── ...
+    ├── bin
+    │   └── ...
+    ├── vendor
+    │   └── ...
+    └── www
+        └── ...
+</pre>
+                                </div>
+                                <div class="col-xs-6">
+                                    <pre>
+~/Projects
+├── bookkeeping_app
+│   ├── app
+│   │   └── ...
+│   ├── bin
+│   │   └── ...
+│   ├── config
+│   │   └── ...
+│   ├── public
+│   │   └── ...
+│   └── ...
+└── management_app
+    ├── templates
+    │   └── ...
+    ├── vendor
+    │   └── ...
+    └── public
+        └── ...
+</pre>
+                                </div>
+                            </div>
+
+                            <p>
+                                Using <code>ServerAlias *.localhost</code> and<br>
+                                <code>VirtualDocumentRoot /home/vagrant/Code/%-2+/www</code><br>
+                                allow Apache to serve any of the following outside the VM, as long as these projects all have <code>www</code> as its public directory:
+                            </p>
+                            <ul>
+                                <li>http://domain.com.localhost:8000</li>
+                                <li>http://app.example.org.localhost:8000</li>
+                                <li>http://any.number.of.sub.domains.example.com.localhost:8000</li>
+                            </ul>
+
+                            <p>If you want to change the ServerAlias to <code>ServerAlias *.dev</code>, then:</p>
+                            <ul>
+                                <li>http://domain.com.dev:8000</li>
+                                <li>http://app.example.org.dev:8000</li>
+                                <li>http://any.number.of.sub.domains.example.com.dev:8000</li>
+                            </ul>
+                            <p>
+                                It's good to have a ServerAlias value of <em>star dot something</em> to avoid confusing the browser's cache to serve a public site vs. a VM local site.
+                                Keeping the standard name <code>*.localhost</code> makes it clear in the browser's address bar.
+                            </p>
+                            <p>Keeping the port visible in the URI is also useful when you have two VMs running and you want to serve two projects from two different ports in two browser tabs.</p>
+                            <p>No need to add entries in <code>/etc/hosts</code>.</p>
+
+                            <p>The second directory tree example above would use <code>VirtualDocumentRoot /home/vagrant/Code/%-2+/public</code> since all its projects use <code>public</code> as their public directory.</p>
+
+                            <p>This page explains the VirtualDocumentRoot Directive and its options: <a target="_blank" href="https://httpd.apache.org/docs/2.4/mod/mod_vhost_alias.html">Apache Module mod_vhost_alias</a></p>
+
+                        </section>
+
+                    </div>
+                    <div class="col-s-12 col-m-6">
+
+                        <section>
+
+                            <p>Example <code>virtualhost.conf</code>:</p>
+                            <pre>
 # ------------------
 # Using DocumentRoot
 # ------------------
@@ -691,111 +782,6 @@ php_value memory_limit 512M
 &lt;/VirtualHost&gt;
 </pre>
 
-                            <!-- </div> -->
-                        </section>
-
-                    </div>
-                    <div class="col-s-12 col-m-6">
-
-                        <section>
-                            <!-- <div class="box"> -->
-
-                                <h3>virtualhost.conf</h3>
-                                <p>You can create <strong>DocumentRoot</strong> VirtualHost blocks one by one for all the projects you want Apache to serve.</p>
-                                <p>But you could use a <strong>VirtualDocumentRoot</strong> VirtualHost block to dynamically serve any project that have a common name for their public directory.</p>
-                                <p>In the example on the left:</p>
-                                <ul>
-                                    <li><code>http://example.com.localhost:8000</code> is served from its <code>public</code> directory.</li>
-                                    <li><code>http://domain.com.localhost:8000</code> is served from its <code>www</code> directory.</li>
-                                </ul>
-                                <p>The order of all DocumentRoot VirtualHost blocks above a <code>VirtualDocumentRoot</code> VirtualHost block is essential for Apache.</p>
-
-                                <h4>DocumentRoot</h4>
-                                <p>Create any number of DocumentRoot VirtualHost blocks in the <code>virtualhost.conf</code> file with the <code>GUEST_SYNCED_FOLDER</code> variable for the VM's projects location.</p>
-                                <p>This page explains the DocumentRoot Directive and its options: <a target="_blank" href="https://httpd.apache.org/docs/2.4/mod/core.html#documentroot">Apache DocumentRoot Directive</a></p>
-
-                                <h4>VirtualDocumentRoot</h4>
-                                <ul>
-                                    <li>If you name your projects directory (<code>GUEST_SYNCED_FOLDER</code>) <code>/home/vagrant/Code</code>, and each project is either a domain name or a repository name; you could call the projects directory <code>/home/vagrant/Projects</code> or any name you like.</li>
-                                    <li>If the public directory to be served by the VM's web server is called <code>www</code>; you could call it <code>public</code> or any name you like.</li>
-                                </ul>
-
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        <pre>
-~/Code
-├── domain.com
-│   ├── app
-│   │   └── ...
-│   ├── vendor
-│   │   └── ...
-│   ├── www
-│   │   └── ...
-│   └── ...
-└── app.example.org
-    ├── app
-    │   └── ...
-    ├── bin
-    │   └── ...
-    ├── vendor
-    │   └── ...
-    └── www
-        └── ...
-</pre>
-                                    </div>
-                                    <div class="col-xs-6">
-                                        <pre>
-~/Projects
-├── bookkeeping_app
-│   ├── app
-│   │   └── ...
-│   ├── bin
-│   │   └── ...
-│   ├── config
-│   │   └── ...
-│   ├── public
-│   │   └── ...
-│   └── ...
-└── management_app
-    ├── templates
-    │   └── ...
-    ├── vendor
-    │   └── ...
-    └── public
-        └── ...
-</pre>
-                                    </div>
-                                </div>
-
-                                <p>
-                                    Using <code>ServerAlias *.localhost</code> and<br>
-                                    <code>VirtualDocumentRoot /home/vagrant/Code/%-2+/www</code><br>
-                                    allow Apache to serve any of the following outside the VM, as long as these projects all have <code>www</code> as its public directory:
-                                </p>
-                                <ul>
-                                    <li>http://domain.com.localhost:8000</li>
-                                    <li>http://app.example.org.localhost:8000</li>
-                                    <li>http://any.number.of.sub.domains.example.com.localhost:8000</li>
-                                </ul>
-
-                                <p>If you want to change the ServerAlias to <code>ServerAlias *.dev</code>, then:</p>
-                                <ul>
-                                    <li>http://domain.com.dev:8000</li>
-                                    <li>http://app.example.org.dev:8000</li>
-                                    <li>http://any.number.of.sub.domains.example.com.dev:8000</li>
-                                </ul>
-                                <p>
-                                    It's good to have a ServerAlias value of <em>star dot something</em> to avoid confusing the browser's cache to serve a public site vs. a VM local site.
-                                    Keeping the standard name <code>*.localhost</code> makes it clear in the browser's address bar.
-                                </p>
-                                <p>Keeping the port visible in the URI is also useful when you have two VMs running and you want to serve two projects from two different ports in two browser tabs.</p>
-                                <p>No need to add entries in <code>/etc/hosts</code>.</p>
-
-                                <p>The second directory tree example above would use <code>VirtualDocumentRoot /home/vagrant/Code/%-2+/public</code> since all its projects use <code>public</code> as their public directory.</p>
-
-                                <p>This page explains the VirtualDocumentRoot Directive and its options: <a target="_blank" href="https://httpd.apache.org/docs/2.4/mod/mod_vhost_alias.html">Apache Module mod_vhost_alias</a></p>
-
-                            <!-- </div> -->
                         </section>
 
                     </div>
@@ -843,7 +829,11 @@ eval "$(rbenv init -)"
                                 <h3>MariaDB and Adminer</h3>
 
                                 <p>MariaDB and Adminer are both set with no password for username <code>root</code> so you can avoid writing a password a zillion times through development.</p>
-
+                                <p>
+                                    To change the MariaDB version,
+                                    go to the <a target="_blank" href="https://mariadb.org/download/?t=repo-config">Download MariaDB Server</a> page and
+                                    create a new repository configuration, then overwrite <code>config/MariaDB.repo</code> or <code>config/MariaDB.list</code> depending on the OS.
+                                </p>
                                 <p>Adminer is served at <code>http://localhost:8000/adminer.php</code>.</p>
 
                             </div>
