@@ -424,8 +424,8 @@ git clone --depth=1 https://github.com/stemar/vagrant-ubuntu-20-04.git ubuntu-20
     └── settings.yaml
 </pre>
 
-                                <p>You can <code>vagrant up</code> each of them in their own tab in your terminal.</p>
-                                <p>They can run concurrently by modifying their <code>:host</code> port in <code>settings.yaml</code>.</p>
+                                <p>You can <code>vagrant up</code> each of them in their own tab in your terminal, 
+                                    but before they can run concurrently, modify their <code>:host</code> port in <code>settings.yaml</code>.</p>
                                 <p>For example:</p>
 
                                 <table class="table-bordered table-specs" style="font-size:smaller;">
@@ -448,7 +448,7 @@ git clone --depth=1 https://github.com/stemar/vagrant-ubuntu-20-04.git ubuntu-20
                                         <td>8002</td>
                                     </tr>
                                     <tr>
-                                        <th>dB</th>
+                                        <th>MySQL</th>
                                         <td>33060</td>
                                         <td>33061</td>
                                         <td>33062</td>
@@ -517,7 +517,7 @@ git clone --depth=1 https://github.com/stemar/vagrant-ubuntu-20-04.git ubuntu-20
   :guest: 3306
 
 :synced_folder:
-- :host: ~/Code
+  :host: ~/Code
   :guest: /home/vagrant/Code
 
 :copy_files:
