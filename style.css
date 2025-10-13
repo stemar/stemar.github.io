@@ -161,17 +161,12 @@ i.fa-caret-square-down {
 i.fa-caret-square-up {
     font-size: 1.25em;
 }
-i.fa-hand-pointer-o {
-    color: #000;
-    float: right;
-    margin-right: -0.25rem;
-    margin-top: 0.25rem;
-}
 a.btn {
     background-color: #a00;
     border-color: #a00;
     border-radius: 5px;
     border: 1px solid transparent;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     color: white;
     cursor: pointer;
     display: inline-block;
