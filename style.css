@@ -166,7 +166,7 @@ a.btn {
     border-color: #a00;
     border-radius: 5px;
     border: 1px solid transparent;
-    box-shadow: rgba(0, 0, 0, 0.3) 3px 3px 6px;
+    box-shadow: rgba(0, 0, 0, 0.15) 3px 3px 6px;
     color: white;
     cursor: pointer;
     display: inline-block;
