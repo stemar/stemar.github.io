@@ -245,6 +245,7 @@ section {
     padding-top: 3em;
 }
 .row.box {
+    margin: 0;
     padding: 1em;
 }
 section .box {
