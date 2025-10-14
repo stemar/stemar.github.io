@@ -589,6 +589,27 @@ git clone --depth=1 https://github.com/stemar/vagrant-ubuntu-20-04.git ubuntu-20
                             </div>
                         </section>
 
+                        <section>
+                            <div class="box">
+
+                                <h3>MariaDB and Adminer</h3>
+
+                                <p><a target="_blank" href="https://mariadb.org">MariaDB</a> and <a target="_blank" href="https://www.adminer.org">Adminer</a> are both set with no password for username <code>root</code> so you can avoid writing a password a zillion times through development.</p>
+                                <p>
+                                    To change the MariaDB version,
+                                    go to the <a target="_blank" href="https://mariadb.org/download/?t=repo-config">Download MariaDB Server</a> page and
+                                    create a new repository configuration, then overwrite <code>config/MariaDB.repo</code> or <code>config/MariaDB.list</code> or <code>config/mariadb.sources</code> depending on the OS.
+                                </p>
+                                <p>Adminer is served at <code>http://localhost:8000/adminer.php</code>. It comes with these <a target="_blank" href="https://www.adminer.org/en/plugins">plugins</a>:</p>
+                                <ul>
+                                    <li>login-password-less</li>
+                                    <li>dump-json</li>
+                                    <li>pretty-json-column</li>
+                                </ul>
+
+                            </div>
+                        </section>
+
                     </div>
                 </div>
 
@@ -981,7 +1002,7 @@ php_value memory_limit 512M
                 </div>
 
                 <div class="row">
-                    <div class="col-s-12 col-m-6">
+                    <div class="col-s-12 col-m-5">
 
                         <section>
                             <div class="box">
@@ -1014,21 +1035,33 @@ eval "$(rbenv init -)"
                         </section>
 
                     </div>
-                    <div class="col-s-12 col-m-6">
+                    <div class="col-s-12 col-m-7">
 
                         <section>
                             <div class="box">
+                                <pre>
+MIT License
 
-                                <h3>MariaDB and Adminer</h3>
+Copyright (c) 2019 Steven Marshall
 
-                                <p>MariaDB and Adminer are both set with no password for username <code>root</code> so you can avoid writing a password a zillion times through development.</p>
-                                <p>
-                                    To change the MariaDB version,
-                                    go to the <a target="_blank" href="https://mariadb.org/download/?t=repo-config">Download MariaDB Server</a> page and
-                                    create a new repository configuration, then overwrite <code>config/MariaDB.repo</code> or <code>config/MariaDB.list</code> depending on the OS.
-                                </p>
-                                <p>Adminer is served at <code>http://localhost:8000/adminer.php</code>. It comes with <a target="_blank" href="https://www.adminer.org/en/plugins">plugins</a>: <em>login-password-less</em>, <em>dump-json</em> and <em>pretty-json-column</em>.</p>
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+                                </pre>
                             </div>
                         </section>
 
