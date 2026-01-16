@@ -773,7 +773,7 @@ Vagrant.configure("2") do |config|
   end unless settings[:copy_files].nil?
 
   config.vm.provision :shell, path: "provision.sh", env: {
-    "FORWARDED_PORT_80"   => settings[:forwarded_ports].find{|port| port[:guest] == 80}[:host],
+    "HOST_HTTP_PORT"   => settings[:forwarded_ports].find{|port| port[:guest] == 80}[:host],
     "GUEST_SYNCED_FOLDER" => settings[:synced_folder][:guest],
     "PHP_ERROR_REPORTING" => settings[:php_error_reporting],
     "TIMEZONE"            => settings[:machine][:timezone]
@@ -955,7 +955,7 @@ php_value memory_limit 512M
 #         └── ...
 #
 &lt;VirtualHost *:80&gt;
-    # http://example.com.localhost:FORWARDED_PORT_80 => DocumentRoot
+    # http://example.com.localhost:HOST_HTTP_PORT => DocumentRoot
     ServerName example.com.localhost
     DocumentRoot GUEST_SYNCED_FOLDER/example.com/public
 
@@ -982,7 +982,7 @@ php_value memory_limit 512M
 #         └── ...
 #
 &lt;VirtualHost *:80&gt;
-    # http://domain.com.localhost:FORWARDED_PORT_80 => VirtualDocumentRoot
+    # http://domain.com.localhost:HOST_HTTP_PORT => VirtualDocumentRoot
     ServerAlias *.localhost
     VirtualDocumentRoot GUEST_SYNCED_FOLDER/%-2+/www
     UseCanonicalName Off
