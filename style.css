@@ -219,7 +219,9 @@ a.btn-float {
     color: #ccc;
 }
 .hero ul {
-    list-style: none;
+    list-style: disc inside none;
+    font-weight: bold;
+    margin-top: 1em;
     padding-left: 0;
 }
 
