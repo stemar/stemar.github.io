@@ -665,10 +665,10 @@ git clone --depth=1 https://github.com/stemar/vagrant-ubuntu-20-04.git ubuntu-20
   :group: vagrant
 
 :copy_files:
-    - :source: ~/.ssh
-      :destination: /home/vagrant/.ssh
-    - :source: ~/.gitconfig
-      :destination: /home/vagrant/.gitconfig
+  - :source: ~/.ssh
+    :destination: /home/vagrant/.ssh
+  - :source: ~/.gitconfig
+    :destination: /home/vagrant/.gitconfig
 
 :php_error_reporting: E_ALL & ~E_NOTICE & ~E_DEPRECATED
 ...
