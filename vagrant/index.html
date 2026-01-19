@@ -671,8 +671,6 @@ git clone --depth=1 https://github.com/stemar/vagrant-ubuntu-20-04.git ubuntu-20
     :destination: /home/vagrant/.gitconfig
 
 :php_error_reporting: E_ALL & ~E_NOTICE & ~E_DEPRECATED
-
-# :ruby_version: 3.3
 ...
 </pre>
 
@@ -728,12 +726,6 @@ git clone --depth=1 https://github.com/stemar/vagrant-ubuntu-20-04.git ubuntu-20
                                 <p>
                                     <code>:php_error_reporting</code> is the PHP error reporting value in PHP constants
                                     which feeds the <code>config/php.ini.htaccess</code> file to display PHP errors on a page in development.
-                                </p>
-
-                                <h4>:ruby_version</h4>
-                                <p>
-                                    <code>:ruby_version</code> is present if the box contains Ruby.
-                                    Uncomment the line to install Ruby.
                                 </p>
 
                         </section>
@@ -792,7 +784,6 @@ Vagrant.configure("2") do |config|
     "HOST_HTTP_PORT"      => host_http_port,
     "GUEST_SYNCED_FOLDER" => guest_synced_folder,
     "PHP_ERROR_REPORTING" => settings[:php_error_reporting],
-    "RUBY_VERSION"        => settings[:ruby_version],
     "TIMEZONE"            => settings[:machine][:timezone]
   }
 end
