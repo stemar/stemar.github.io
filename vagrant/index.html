@@ -961,16 +961,16 @@ memory_limit = 512M
                                 allow Apache to serve any of the following outside the VM, as long as these projects all have <code>www</code> as its public directory:
                             </p>
                             <ul>
-                                <li>http://domain.com.localhost:8000</li>
-                                <li>http://app.example.org.localhost:8000</li>
-                                <li>http://any.number.of.sub.domains.example.com.localhost:8000</li>
+                                <li><code>http://domain.com.localhost:8000</code></li>
+                                <li><code>http://app.example.org.localhost:8000</code></li>
+                                <li><code>http://any.number.of.sub.domains.example.com.localhost:8000</code></li>
                             </ul>
 
                             <p>If you want to change the ServerAlias to <code>ServerAlias *.dev</code>, then:</p>
                             <ul>
-                                <li>http://domain.com.dev:8000</li>
-                                <li>http://app.example.org.dev:8000</li>
-                                <li>http://any.number.of.sub.domains.example.com.dev:8000</li>
+                                <li><code>http://domain.com.dev:8000</code></li>
+                                <li><code>http://app.example.org.dev:8000</code></li>
+                                <li><code>http://any.number.of.sub.domains.example.com.dev:8000</code></li>
                             </ul>
                             <p>
                                 It's good to have a ServerAlias value of <em>star dot something</em> to avoid confusing the browser's cache to serve a public site vs. a VM local site.
