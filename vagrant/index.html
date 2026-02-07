@@ -507,12 +507,18 @@
 
                                 <h3>Flexible configuration</h3>
 
-                                <p>You can add, edit and remove OS packages and repositories from the <code>provision.sh</code> file.</p>
+                                <p>
+                                    You can add, edit and remove OS packages and repositories from the <code>provision.sh</code> file.
+                                </p>
                                 <p>
                                     You can add, edit and remove <code>settings.yaml</code> values.
                                     The <code>settings.yaml</code> values feeds <code>Vagrantfile</code> that builds the virtual machine.
                                 </p>
-
+                                <p>
+                                    You can edit the development settings in <code>config/php.ini</code> that will be applied to all your local PHP-based websites.
+                                    These settings override Apache's <code>php.ini</code> settings, but they don't override <abbr title="Command-line interface">CLI</abbr>'s settings.
+                                    The settings provided will show all errors on page, which is desired on a development environment but not on a production environment.
+                                </p>
                             </div>
                         </section>
 
@@ -521,7 +527,10 @@
 
                                 <h3>Multiple Vagrant boxes</h3>
 
-                                <p>No need to create one global <code>Vagrantfile</code> with multiple boxes in it, as explained here: <a target="_blank" href="https://www.vagrantup.com/docs/multi-machine">Multi-Machine</a>.</p>
+                                <p>
+                                    No need to create one global <code>Vagrantfile</code> with multiple boxes in it, as explained here:
+                                    <a target="_blank" href="https://www.vagrantup.com/docs/multi-machine">Multi-Machine</a>.
+                                </p>
 
                                 <p>If you clone many boxes in the same parent directory <code>~/VM</code>:</p>
 
@@ -542,7 +551,7 @@ git clone --depth=1 https://github.com/stemar/vagrant-ubuntu-20-04.git ubuntu-20
 │   │   ├── adminer.php
 │   │   ├── bash_aliases
 │   │   ├── localhost.conf
-│   │   ├── php.ini.htaccess
+│   │   ├── php.ini
 │   │   ├── php.list
 │   │   └── virtualhost.conf
 │   ├── CHANGELOG.md
@@ -560,7 +569,7 @@ git clone --depth=1 https://github.com/stemar/vagrant-ubuntu-20-04.git ubuntu-20
 │   │   ├── adminer.php
 │   │   ├── bashrc
 │   │   ├── localhost.conf
-│   │   ├── php.ini.htaccess
+│   │   ├── php.ini
 │   │   └── virtualhost.conf
 │   ├── CHANGELOG.md
 │   ├── LICENSE
@@ -576,7 +585,7 @@ git clone --depth=1 https://github.com/stemar/vagrant-ubuntu-20-04.git ubuntu-20
     │   ├── adminer.php
     │   ├── bash_aliases
     │   ├── localhost.conf
-    │   ├── php.ini.htaccess
+    │   ├── php.ini
     │   └── virtualhost.conf
     ├── CHANGELOG.md
     ├── LICENSE
@@ -709,8 +718,6 @@ git clone --depth=1 https://github.com/stemar/vagrant-ubuntu-20-04.git ubuntu-20
     :destination: /home/vagrant/.ssh
   - :source: ~/.gitconfig
     :destination: /home/vagrant/.gitconfig
-
-:php_error_reporting: E_ALL & ~E_NOTICE & ~E_DEPRECATED
 ...
 </pre>
 
@@ -760,12 +767,6 @@ git clone --depth=1 https://github.com/stemar/vagrant-ubuntu-20-04.git ubuntu-20
                                 <p>
                                     Here we want to clone configuration files so that the same configuration applies on the host and the guest,
                                     instead of having different configurations for Git and Subversion in and out of the VM.
-                                </p>
-
-                                <h4>:php_error_reporting</h4>
-                                <p>
-                                    <code>:php_error_reporting</code> is the PHP error reporting value in PHP constants
-                                    which feeds the <code>config/php.ini.htaccess</code> file to display PHP errors on a page in development.
                                 </p>
 
                         </section>
@@ -823,7 +824,6 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, path: "provision.sh", env: {
     "HOST_HTTP_PORT"      => host_http_port,
     "GUEST_SYNCED_FOLDER" => guest_synced_folder,
-    "PHP_ERROR_REPORTING" => settings[:php_error_reporting],
     "TIMEZONE"            => settings[:machine][:timezone]
   }
 end
@@ -839,29 +839,25 @@ end
 
                         <section>
 
-                            <p>Example <code>php.ini.htaccess</code>:</p>
+                            <p>Example <code>php.ini</code>:</p>
                             <pre>
-# http://php.net/manual/en/configuration.changes.php
-# http://php.net/manual/en/ini.list.php
-
-# Development environment error settings
-php_flag display_startup_errors on
-php_flag display_errors on
-php_flag html_errors on
-php_flag ignore_repeated_errors off
-php_flag ignore_repeated_source off
-php_flag report_memleaks on
-php_flag track_errors on
-php_value docref_root 0
-php_value docref_ext 0
-php_flag log_errors off
-php_value log_errors_max_len 0
-php_value error_reporting PHP_ERROR_REPORTING_INT
-
-# Application settings
-php_value upload_max_filesize 512M
-php_value post_max_size 512M
-php_value memory_limit 512M
+; Development environment Apache overrides
+; https://www.php.net/manual/en/ini.php
+date.timezone = America/Los_Angeles
+expose_php = On
+short_open_tag = On
+error_reporting = E_ALL
+ignore_repeated_errors = On
+ignore_repeated_source = On
+report_memleaks = On
+intl.error_level = E_WARNING
+intl.use_exceptions = On
+log_errors = On
+display_errors = On
+display_startup_errors = On
+upload_max_filesize = 512M
+post_max_size = 512M
+memory_limit = 512M
 </pre>
 
                         </section>
@@ -871,21 +867,28 @@ php_value memory_limit 512M
 
                         <section>
 
-                            <h3>php.ini.htaccess</h3>
-                            <p>This file will be copied to <code>/var/www/.htaccess</code> to set <code>php.ini</code> settings for a development environment.</p>
-                            <p><em>PHP in this VM is run as an Apache module, not as FastCGI.</em> So we use <code>.htaccess</code> to set <code>php.ini</code> settings.</p>
-                            <p>It allows PHP to display errors on the page, turn off error logging, set <code>error_reporting</code> to the value from <code>settings.yaml</code>, and set decent memory size values.</p>
-
+                            <h3>php.ini</h3>
+                            <p>
+                                This file will be copied to <code>/var/www/php.ini</code> to set <code>php.ini</code> settings for a development environment to override Apache's <code>php.ini</code> settings.</p>
+                            <p>
+                                <em>PHP in this VM is run as an Apache module, not as FastCGI.</em>
+                                The <code>virtualhost.conf</code> file contains accommodations (<code>PHPINIDir</code> and <code>SetEnv PHP_INI_SCAN_DIR</code>) to make <code>/var/www/php.ini</code> work correctly.
+                                You can add a <code>.htaccess</code> file in the <code>/var/www</code> directory if needed, and it will be handled correctly.
+                            </p>
+                            <p>
+                                It allows PHP to display errors on the page, turn on error logging as well, set <code>error_reporting</code> to <code>E_ALL</code>, and set decent memory size values.
+                            </p>
+                            
                         </section>
-
+                        
                     </div>
                 </div>
 
                 <div class="row box">
                     <div class="col-s-12 col-m-6">
-
+                        
                         <section>
-
+                            
                             <h3>virtualhost.conf</h3>
                             <p>You can create <strong>DocumentRoot</strong> VirtualHost blocks one by one for all the projects you want Apache to serve.</p>
                             <p>But you could use a <strong>VirtualDocumentRoot</strong> VirtualHost block to dynamically serve any project that have a common name for their public directory.</p>
@@ -895,30 +898,30 @@ php_value memory_limit 512M
                                 <li><code>http://domain.com.localhost:8000</code> is served from its <code>www</code> directory.</li>
                             </ul>
                             <p>The order of all DocumentRoot VirtualHost blocks above a VirtualDocumentRoot VirtualHost block is essential for Apache.</p>
-
+                            
                             <h4>DocumentRoot</h4>
                             <p>Create any number of DocumentRoot VirtualHost blocks in the <code>virtualhost.conf</code> file with the <code>GUEST_SYNCED_FOLDER</code> variable for the VM's projects location.</p>
                             <p>This page explains the DocumentRoot Directive and its options: <a target="_blank" href="https://httpd.apache.org/docs/2.4/mod/core.html#documentroot">Apache DocumentRoot Directive</a></p>
-
+                            
                             <h4>VirtualDocumentRoot</h4>
                             <ul>
                                 <li>If you name your projects directory (<code>GUEST_SYNCED_FOLDER</code>) <code>/home/vagrant/Code</code>, and each project is either a domain name or a repository name; you could call the projects directory <code>/home/vagrant/Projects</code> or any name you like.</li>
                                 <li>If the public directory to be served by the VM's web server is called <code>www</code>; you could call it <code>public</code> or any name you like.</li>
                             </ul>
-
+                            
                             <div class="row">
                                 <div class="col-xs-6">
                                     <pre>
-~/Code
-├── domain.com
-│   ├── app
-│   │   └── ...
-│   ├── vendor
-│   │   └── ...
-│   ├── www
-│   │   └── ...
-│   └── ...
-└── app.example.org
+                                        ~/Code
+                                        ├── domain.com
+                                        │   ├── app
+                                        │   │   └── ...
+                                        │   ├── vendor
+                                        │   │   └── ...
+                                        │   ├── www
+                                        │   │   └── ...
+                                        │   └── ...
+                                        └── app.example.org
     ├── app
     │   └── ...
     ├── bin
@@ -1006,6 +1009,8 @@ php_value memory_limit 512M
     # http://example.com.localhost:HOST_HTTP_PORT => DocumentRoot
     ServerName example.com.localhost
     DocumentRoot GUEST_SYNCED_FOLDER/example.com/public
+    PHPINIDir /var/www
+    SetEnv PHP_INI_SCAN_DIR "/etc/php.d:/var/www"
 
     &lt;Directory GUEST_SYNCED_FOLDER/example.com&gt;
         Options Indexes FollowSymLinks
@@ -1034,6 +1039,8 @@ php_value memory_limit 512M
     ServerAlias *.localhost
     VirtualDocumentRoot GUEST_SYNCED_FOLDER/%-2+/www
     UseCanonicalName Off
+    PHPINIDir /var/www
+    SetEnv PHP_INI_SCAN_DIR "/etc/php.d:/var/www"
 
     &lt;Directory GUEST_SYNCED_FOLDER&gt;
         Options Indexes FollowSymLinks
@@ -1064,7 +1071,7 @@ php_value memory_limit 512M
                                 <p>Example <code>bash_aliases</code> (Debian-based OS):</p>
                                 <pre>
 export HISTCONTROL=ignoreboth:erasedups
-alias ll="ls -lAFh --group-directories-first"
+alias ll="LC_ALL=C ls -lAFh --group-directories-first --color=auto"
 alias nano="nano -cw"
 </pre>
 
@@ -1072,7 +1079,7 @@ alias nano="nano -cw"
                                 <pre>
 export HISTCONTROL=ignoreboth:erasedups
 export PS1="[\u@\H \w]$ "
-alias ll="ls -lAFh --group-directories-first"
+alias ll="LC_ALL=C ls -lAFh --group-directories-first --color=auto"
 alias nano="nano -cw"
 </pre>
 
