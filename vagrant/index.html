@@ -893,15 +893,18 @@ memory_limit = 512M
                                 <li><code>http://example.com.localhost:8000</code> is served from its <code>public</code> directory.</li>
                                 <li><code>http://domain.com.localhost:8000</code> is served from its <code>www</code> directory.</li>
                             </ul>
-                            <p>The order of all DocumentRoot VirtualHost blocks above a VirtualDocumentRoot VirtualHost block is essential for Apache.</p>
+                            <p>The order of all <strong>DocumentRoot</strong> VirtualHost blocks above a <strong>VirtualDocumentRoot</strong> VirtualHost block is essential for Apache.</p>
                             
                             <h4>DocumentRoot</h4>
-                            <p>Create any number of DocumentRoot VirtualHost blocks in the <code>virtualhost.conf</code> file with the <code>GUEST_SYNCED_FOLDER</code> variable for the VM's projects location.</p>
-                            <p>This page explains the DocumentRoot Directive and its options: <a target="_blank" href="https://httpd.apache.org/docs/2.4/mod/core.html#documentroot">Apache DocumentRoot Directive</a></p>
+                            <p>Create any number of <strong>DocumentRoot</strong> VirtualHost blocks in the <code>virtualhost.conf</code> file with the <code>GUEST_SYNCED_FOLDER</code> variable for the VM's projects location.</p>
+                            <p>This page explains the <strong>DocumentRoot</strong> Directive and its options: <a target="_blank" href="https://httpd.apache.org/docs/2.4/mod/core.html#documentroot">Apache DocumentRoot Directive</a></p>
                             
                             <h4>VirtualDocumentRoot</h4>
                             <ul>
-                                <li>If you name your projects directory (<code>GUEST_SYNCED_FOLDER</code>) <code>/home/vagrant/Code</code>, and each project is either a domain name or a repository name; you could call the projects directory <code>/home/vagrant/Projects</code> or any name you like.</li>
+                                <li>
+                                    If you name your projects directory (<code>GUEST_SYNCED_FOLDER</code>) <code>/home/vagrant/Code</code>,
+                                    and each project is either a domain name or a repository name; you could call the projects directory <code>/home/vagrant/Projects</code> or any name you like.
+                                </li>
                                 <li>If the public directory to be served by the VM's web server is called <code>www</code>; you could call it <code>public</code> or any name you like.</li>
                             </ul>
                             
@@ -978,7 +981,7 @@ memory_limit = 512M
 
                             <p>The second directory tree example above would use <code>VirtualDocumentRoot /home/vagrant/Code/%-2+/public</code> since all its projects use <code>public</code> as their public directory.</p>
 
-                            <p>This page explains the VirtualDocumentRoot Directive and its options: <a target="_blank" href="https://httpd.apache.org/docs/2.4/mod/mod_vhost_alias.html">Apache Module mod_vhost_alias</a></p>
+                            <p>This page explains the <strong>VirtualDocumentRoot</strong> Directive and its options: <a target="_blank" href="https://httpd.apache.org/docs/2.4/mod/mod_vhost_alias.html">Apache Module mod_vhost_alias</a></p>
 
                         </section>
 
@@ -1049,6 +1052,33 @@ memory_limit = 512M
 &lt;/VirtualHost&gt;
 </pre>
 
+                        </section>
+
+                        <section>
+
+                            <h3>localhost.conf</h3>
+
+                            <p>This setup allows the virtual machine to host <code>localhost</code> with a port set in <code>settings.yaml</code> and facilitate the <code>virtualhost.conf</code> setup above</p>
+                            <p>It allows Vagrant to host with Apache.</p>
+                            <p>It allows a <code>.htaccess</code>file to be recognized in any local website and any of its subdirectories.</p>
+                            <p>It allows the provided <code>php.ini</code> fileto override Apache's <code>php.ini</code> default settings.</p>
+
+                            <p>Example <code>localhost.conf</code>:</p>
+                            <pre>
+# Apache 2.4
+
+User vagrant
+Group vagrant
+EnableSendfile Off
+ServerName localhost
+
+# Allow .htaccess and custom php.ini for all sites
+&lt;Directory /var/www&gt;
+    Options Indexes FollowSymLinks
+    AllowOverride All
+    Require all granted
+&lt;/Directory&gt;
+</pre>
                         </section>
 
                     </div>
