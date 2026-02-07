@@ -761,9 +761,7 @@ git clone --depth=1 https://github.com/stemar/vagrant-ubuntu-20-04.git ubuntu-20
                                     the <code>:source</code> value is the path of the file you want to copy from the physical machine
                                     while the <code>:destination</code> value is the path of the file you want to copy to the virtual machine.
                                 </p>
-                                <blockquote>
-                                    <p>These files are not synchronized; they are copied at provisioning only.</p>
-                                </blockquote>
+                                <p><em>These files are not synchronized; they are copied at provisioning only.</em></p>
                                 <p>
                                     Here we want to clone configuration files so that the same configuration applies on the host and the guest,
                                     instead of having different configurations for Git and Subversion in and out of the VM.
